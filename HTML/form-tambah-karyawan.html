@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
-    <title>Manajemen Karyawan</title>
+    <title>Tambah Karyawan</title>
 
     <!-- Google Font -->
     <link
@@ -16,7 +16,7 @@
 
     <link
       rel="stylesheet"
-      href="/CSS/style-karyawan.css"
+      href="/CSS/style-ft-karyawan.css"
     />
 
     <!-- Feather Icons -->
@@ -53,7 +53,7 @@
       <div class="container-karyawan">
         <span class="icon utama"><i data-feather="users"></i></span>
         <a
-          href="#"
+          href="/HTML/karyawan.html"
           class="menu-nav"
           >Karyawan</a
         >
@@ -90,43 +90,71 @@
     <div id="batas"></div>
     <!-- Profile end -->
 
-    <!-- Pencarian Start -->
-    <div class="pencarian">
-      <form action="">
-        <button type="submit">Search</button>
-        <input
-          type="text"
-          name="cari"
-          placeholder="Search Product"
-          required
-        />
-      </form>
-    </div>
-    <!-- Pencarian End -->
-
-    <!-- Kolom Manajemen Karyawan Start -->
-    <section class="container-manajemen-karyawan">
-      <div class="kolom karyawan">
+    <!-- Form Tambah Karyawan Start -->
+    <div class="form-container">
+      <div class="form">
         <div class="icon">
           <div class="keterangan">
             <span id="feather-icon"><i data-feather="table"></i></span>
-            <span>KARYAWAN</span>
+            <span>ADD KARYAWAN</span>
           </div>
-          <div class="tambah-data"><a href="/HTML/form-tambah-karyawan.html">ADD NEW</a></div>
         </div>
-        <table class="tb_karyawan">
-          <tr>
-            <th>Id</th>
-            <th>Nama</th>
-            <th>Email</th>
-            <th>Alamat</th>
-            <th>Posisi</th>
-            <th>Actions</th>
-          </tr>
-        </table>
+        <form action="">
+          <label for="nama">Nama</label><br />
+          <input
+            type="text"
+            id="nama"
+            name="nama"
+            placeholder="Full Name"
+            required
+          /><br />
+
+          <label for="email">Email</label><br />
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="example@mail.com"
+            required
+          /><br />
+
+          <label for="alamat">Alamat</label><br />
+          <input
+            type="text"
+            id="alamat"
+            name="alamat"
+            placeholder="Address"
+            required
+          /><br />
+
+          <label for="posisi">Posisi</label><br />
+          <select
+            id="posisi"
+            name="posisi"
+          >
+            <option value="kasir">Kasir</option>
+            <option value="kurir">Kurir</option>
+            <option value="sales">Sales</option></select
+          ><br />
+        </form>
+
+        <button
+          type="submit"
+          style="cursor: pointer"
+        >
+          Tambah
+        </button>
+        <button
+          type="reset"
+          style="cursor: pointer"
+          id="reset"
+        >
+          Reset
+        </button>
       </div>
-    </section>
-    <!-- Kolom Manajemen Karyawan End -->
+    </div>
+
+    <!-- Form Tambah Karyawan End -->
     <script>
       feather.replace();
     </script>

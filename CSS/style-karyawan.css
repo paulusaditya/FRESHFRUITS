@@ -115,3 +115,147 @@ body {
   height: 80px;
 }
 /* header end */
+
+/* Pencarian Start */
+.pencarian {
+  margin-top: 30px;
+  margin-left: 400px;
+}
+
+.pencarian button {
+  width: 80px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid #dd5a21;
+  background-color: var(--transparent-primary);
+  color: white;
+  cursor: pointer;
+}
+
+.pencarian button:hover {
+  background-color: #ca714b;
+}
+
+.pencarian input {
+  width: 300px;
+  height: 30px;
+  border-radius: 8px;
+  padding: 8px;
+  border: 1.5px solid rgb(155, 167, 167);
+}
+/* Pencarian End */
+
+/* Kolom Manajemen Karyawan Start*/
+.container-manajemen-karyawan {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  margin-left: 300px;
+  width: 1400px;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  /* border: 2px solid black; */
+}
+
+.container-manajemen-karyawan .kolom {
+  flex-direction: column;
+  background-color: white;
+  width: 1200px;
+  height: auto;
+  border: 1px solid rgb(155, 167, 167);
+  overflow: auto;
+}
+
+.container-manajemen-karyawan .icon {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  height: 70px;
+  padding: 0 10px;
+  border-bottom: 4.5px solid var(--primary);
+  background-color: var(--bg);
+  width: 1199px;
+  border-right: 1px solid rgb(155, 167, 167);
+  position: fixed;
+}
+
+.container-manajemen-karyawan .icon .keterangan {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: medium;
+  width: 130px;
+  justify-content: space-between;
+  /* border: 1px solid black; */
+}
+
+.container-manajemen-karyawan .icon .keterangan #feather-icon {
+  margin-top: 5px;
+}
+
+.container-manajemen-karyawan .icon .tambah-data {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 40px;
+  background-color: var(--transparent-primary);
+  border-radius: 12px;
+  border: 1px solid #dd5a21;
+}
+
+.container-manajemen-karyawan .icon .tambah-data a {
+  text-decoration: none;
+  color: whitesmoke;
+  font-weight: Medium;
+}
+
+.container-manajemen-karyawan .icon .tambah-data:hover {
+  background-color: #ca714b;
+  cursor: pointer;
+}
+
+.container-manajemen-karyawan .kolom .tb_karyawan {
+  margin: 85px auto 15px;
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 5px;
+  font-size: 12px;
+}
+
+.container-manajemen-karyawan .kolom .tb_karyawan a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: auto;
+  border-radius: 5px;
+  background-color: var(--transparent-primary);
+  text-decoration: none;
+  color: white;
+  font-family: 'Poppins', Arial, Helvetica, sans-serif;
+  border-width: 0.5px;
+}
+
+.container-manajemen-karyawan .kolom .tb_karyawan .btn_hapus a {
+  background-color: red;
+  cursor: pointer;
+}
+
+td,
+th {
+  border: 1px solid black;
+  padding: 20px 45px;
+}
+
+th {
+  background-color: rgb(219, 210, 210);
+}
+
+td:nth-child(6) {
+  display: flex;
+}
+
+/* Kolom Manajemen Karyawan End */

@@ -81,14 +81,93 @@
     <header class="profile">
       <h2>FreshFruit</h2>
       <h1 style="margin-right: 90px">PROMOSI</h1>
-      <div id="profile"><i data-feather="user"></i></div>
+      <a
+        href="/HTML/akun.html"
+        id="profile"
+        ><i data-feather="user"></i
+      ></a>
     </header>
     <div id="batas"></div>
     <!-- Profile end -->
 
+    <!-- Content Card -->
+    <section class="container-promosi-2">
+      <div class="icon">
+        <div class="keterangan">
+          <span id="feather-icon"><i data-feather="thumbs-up"></i></span>
+          <span>Rekomendasi Jenis Promosi Untuk Anda!</span>
+        </div>
+      </div>
+      <section class="container-card">
+        <div class="cards">
+          <div class="keterangan">
+            <h2>Diskon</h2>
+          </div>
+          <div class="simbol">
+            <a href="/HTML/form-promosi-diskon.html">Start</a>
+          </div>
+        </div>
+        <div class="cards">
+          <div class="keterangan">
+            <h2>Flash Sale</h2>
+          </div>
+          <div class="simbol card-2">
+            <a href="/HTML/form-flash-sale.html">Start</a>
+          </div>
+        </div>
+        <div class="cards">
+          <div class="keterangan">
+            <h2>Voucher Toko</h2>
+          </div>
+          <div class="simbol card-3">
+            <a href="/HTML/form-add-voucher.html">Start</a>
+          </div>
+        </div>
+      </section>
+    </section>
+    <!-- Content Card End -->
+
+    <!--  Content Promosi Diskon -->
+    <section class="container-promosi-3">
+      <div class="icon">
+        <div class="keterangan">
+          <span id="feather-icon"><i data-feather="shopping-cart"></i></span>
+          <span>JERUK MANDARIN</span>
+        </div>
+      </div>
+      <div class="kolom">
+        <table class="tabel">
+          <tr class="header-kolom">
+            <th>Nama Produk</th>
+            <th>Jenis Promosi</th>
+            <th>Harga Asli</th>
+            <th>Harga Promosi</th>
+            <th>Stok Promosi</th>
+            <th>Aktivasi</th>
+            <th>Action</th>
+          </tr>
+          <tr>
+            <td>Jeruk Mandarin</td>
+            <td>Diskon</td>
+            <td>Rp. 30.000</td>
+            <td>Rp. 27.000</td>
+            <td>15</td>
+            <td>
+              <div class="btn-act">
+                <div class="nonactive-btn"></div>
+              </div>
+            </td>
+            <td>
+              <div class="action">x</div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </section>
+
     <script>
       feather.replace();
     </script>
-    <script src="/JAVASCRIPT/script.js"></script>
+    <script src="/JAVASCRIPT/promosi.js"></script>
   </body>
 </html>

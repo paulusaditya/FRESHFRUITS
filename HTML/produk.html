@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
-    <title>Dashboard</title>
+    <title>Produk</title>
 
     <!-- Google Font -->
     <link
@@ -81,14 +81,73 @@
     <header class="profile">
       <h2>FreshFruit</h2>
       <h1 style="margin-right: 90px">PRODUK</h1>
-      <div id="profile"><i data-feather="user"></i></div>
+      <a
+        href="/HTML/akun.html"
+        id="profile"
+        ><i data-feather="user"></i
+      ></a>
     </header>
     <div id="batas"></div>
     <!-- Profile end -->
 
+    <!-- Fitur Search and Sort Start -->
+    <!-- Fitur Search Start -->
+    <div class="fitur-tambahan">
+      <div class="pencarian">
+        <form action="">
+          <button type="submit">Search</button>
+          <input
+            type="text"
+            name="cari"
+            placeholder="Search Product"
+            required
+          />
+        </form>
+      </div>
+
+      <!-- Fitur Sorting Start -->
+      <div class="sorting">
+        <form action="">
+          <label for="sort">SORT</label>
+          <select
+            name="sort"
+            id="sort"
+          >
+            <option value="nama">Nama</option>
+            <option value="harga">Harga</option>
+            <option value="stok">Stok</option>
+          </select>
+        </form>
+      </div>
+    </div>
+    <!-- Fitur Search nd Sort End -->
+
+    <!-- Kolom Manajemen produk Start -->
+    <section class="container-manajemen-produk">
+      <div class="kolom">
+        <div class="icon">
+          <div class="keterangan">
+            <span id="feather-icon"><i data-feather="table"></i></span>
+            <span>PRODUK</span>
+          </div>
+          <div class="tambah-data"><a href="/HTML/form-tambah-produk.html">ADD NEW</a></div>
+        </div>
+        <table class="tb_produk">
+          <tr>
+            <th>Id</th>
+            <th>Nama</th>
+            <th>Harga</th>
+            <th>Stok</th>
+            <th>Tgl Kadaluarsa</th>
+            <th>Actions</th>
+          </tr>
+        </table>
+      </div>
+    </section>
+    <!-- Kolom Manajemen produk End -->
     <script>
       feather.replace();
     </script>
-    <script src="/JAVASCRIPT/script.js"></script>
+    <script src="/JAVASCRIPT/produk.js"></script>
   </body>
 </html>

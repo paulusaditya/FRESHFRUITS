@@ -207,6 +207,7 @@ body {
   padding-left: 10px;
   border-bottom: 4.5px solid var(--primary);
   background-color: var(--bg);
+  /* position: fixed; */
 }
 
 .container-kolom-keterangan .icon span {

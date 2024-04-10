@@ -8,6 +8,7 @@ html,
 * {
   margin: 0;
   box-sizing: border-box;
+  text-decoration: none;
 }
 
 body {
@@ -115,3 +116,182 @@ body {
   height: 80px;
 }
 /* header end */
+
+/* JENIS PROMOSIII */
+/* #header-fitur {
+  margin-left: 320px;
+  margin-top: 20px;
+} */
+
+.container-promosi-2 {
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  margin: 1px 0 10px 300px;
+  width: 1350px;
+  height: 300px;
+  display: flex;
+  /* border: 2px solid black; */
+}
+
+.container-promosi-2 .icon {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  padding: 10px;
+  background-color: var(--bg);
+  width: 1349px;
+  height: 100px;
+  /* border: 1px solid rgb(155, 167, 167); */
+  border-bottom: 4.5px solid var(--primary);
+  margin-top: 30px;
+}
+
+.container-promosi-2 .icon .keterangan {
+  display: flex;
+  font-weight: bold;
+  font-size: medium;
+  width: 370px;
+  justify-content: space-between;
+}
+
+/* .container-promosi-2 .icon .keterangan #feather-icon {
+  margin-top: 10px;
+} */
+
+/* card start */
+.container-promosi-2 .container-card {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  /* flex-direction: column; */
+  width: 100%;
+  margin: 20px 0;
+  /* background-color: blueviolet; */
+}
+
+.container-promosi-2 .container-card .cards {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 30px 40px;
+  width: 400px;
+  height: 170px;
+  background-color: white;
+  border: 1px solid rgb(211, 218, 218);
+  margin: auto;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.container-promosi-2 .container-card .cards .keterangan {
+  text-align: start;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-decoration: none;
+  color: black;
+}
+
+.container-promosi-2 .container-card .cards .simbol {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: 60px;
+  background-color: rgb(230, 83, 83);
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.container-promosi-2 .container-card .cards .simbol:hover {
+  background-color: rgb(176, 60, 60);
+}
+
+.container-promosi-2 .container-card .cards a {
+  color: whitesmoke;
+}
+/* card end */
+
+/* header tabel promosi */
+
+.container-promosi-3 {
+  display: flex;
+  justify-content: start;
+  flex-direction: column;
+  margin-left: 300px;
+  margin-top: 15px;
+  width: 1350px;
+  height: auto;
+  border: 1px solid rgb(141, 141, 141);
+  border-radius: 7px;
+  padding: 10px;
+}
+
+.container-promosi-3 .kolom .tabel {
+  width: 100%;
+  height: 80px;
+  border: 1px solid rgb(141, 141, 141);
+  border-radius: 7px;
+  text-align: center;
+  margin: 10px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10px;
+}
+
+.container-promosi-3 .icon {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  border-bottom: 4.5px solid var(--primary);
+}
+
+.container-promosi-3 .icon .keterangan {
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 177px;
+}
+
+.container-promosi-3 .kolom .tabel .btn-act {
+  background-color: red;
+  width: 50px;
+  height: 25px;
+  border-radius: 50px;
+  cursor: pointer;
+  /* border: 1px solid rgb(141, 141, 141); */
+}
+
+.container-promosi-3 .kolom .tabel .btn-act .nonactive-btn {
+  background-color: rgb(255, 255, 255);
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 1px solid rgb(141, 141, 141);
+  transition: 0.2s;
+}
+
+.container-promosi-3 .kolom .tabel .btn-act .active-btn {
+  transform: translateX(25px);
+  transition: 0.2s;
+}
+
+.container-promosi-3 .kolom .tabel .action {
+  width: 25px;
+  height: 25px;
+  background-color: red;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+td {
+  /* border: 1px solid black; */
+  padding: 10px 70px 10px 50px;
+}

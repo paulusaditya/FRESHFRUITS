@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
-    <title>Manajemen Karyawan</title>
+    <title>Tambah Karyawan</title>
 
     <!-- Google Font -->
     <link
@@ -16,7 +16,7 @@
 
     <link
       rel="stylesheet"
-      href="/CSS/style-karyawan.css"
+      href="/CSS/style-add-voucher.css"
     />
 
     <!-- Feather Icons -->
@@ -51,15 +51,15 @@
         >
       </div>
       <div class="container-karyawan">
-        <span class="icon utama"><i data-feather="users"></i></span>
+        <span class="icon"><i data-feather="users"></i></span>
         <a
-          href="#"
+          href="/HTML/karyawan.html"
           class="menu-nav"
           >Karyawan</a
         >
       </div>
       <div class="container-promosi">
-        <span class="icon"><i data-feather="tag"></i></span>
+        <span class="icon utama"><i data-feather="tag"></i></span>
         <a
           href="/HTML/promosi.html"
           class="menu-nav"
@@ -80,7 +80,7 @@
     <!-- Profile -->
     <header class="profile">
       <h2>FreshFruit</h2>
-      <h1 style="margin-right: 90px">MANAJEMEN KARYAWAN</h1>
+      <h1 style="margin-right: 90px">PROMOSI - VOUCHER</h1>
       <a
         href="/HTML/akun.html"
         id="profile"
@@ -90,46 +90,73 @@
     <div id="batas"></div>
     <!-- Profile end -->
 
-    <!-- Pencarian Start -->
-    <div class="pencarian">
-      <form action="">
-        <button type="submit">Search</button>
-        <input
-          type="text"
-          name="cari"
-          placeholder="Search Product"
-          required
-        />
-      </form>
-    </div>
-    <!-- Pencarian End -->
-
-    <!-- Kolom Manajemen Karyawan Start -->
-    <section class="container-manajemen-karyawan">
-      <div class="kolom karyawan">
+    <!-- Voucher Form Start -->
+    <div class="form-container">
+      <div class="form">
         <div class="icon">
           <div class="keterangan">
             <span id="feather-icon"><i data-feather="table"></i></span>
-            <span>KARYAWAN</span>
+            <span>ADD VOUCHER</span>
           </div>
-          <div class="tambah-data"><a href="/HTML/form-tambah-karyawan.html">ADD NEW</a></div>
         </div>
-        <table class="tb_karyawan">
-          <tr>
-            <th>Id</th>
-            <th>Nama</th>
-            <th>Email</th>
-            <th>Alamat</th>
-            <th>Posisi</th>
-            <th>Actions</th>
-          </tr>
-        </table>
+        <form action="">
+          <label for="nama">Nama Produk</label><br />
+          <input
+            type="text"
+            id="nama"
+            name="nama"
+            placeholder="Product Name"
+            required
+          /><br />
+
+          <label for="nama-vcr">Keterangan Voucher</label><br />
+          <select
+            name="nama-vcr"
+            id="nama-vcr"
+          >
+            <option value="potongan-harga">Potongan Harga</option>
+            <option value="bonus-pembelian">Bonus Pembelian</option>
+            <option value="lain-lain">Lain-lain</option></select
+          ><br />
+
+          <label for="vcr">Keterangan Voucher</label><br />
+          <input
+            type="text"
+            id="vcr"
+            name="vcr"
+            placeholder="Write your voucher detail"
+            required
+          /><br />
+
+          <label for="stok">Jumlah Stok yang Diinginkan</label><br />
+          <input
+            type="text"
+            id="stok"
+            name="stok"
+            placeholder="Stock"
+            required
+          /><br />
+        </form>
+
+        <button
+          type="submit"
+          style="cursor: pointer"
+        >
+          Tambah
+        </button>
+        <button
+          type="reset"
+          style="cursor: pointer"
+          id="reset"
+        >
+          Reset
+        </button>
       </div>
-    </section>
-    <!-- Kolom Manajemen Karyawan End -->
+    </div>
+
     <script>
       feather.replace();
     </script>
-    <script src="/JAVASCRIPT/karyawan.js"></script>
+    <!-- <script src="/JAVASCRIPT/karyawan.js"></script> -->
   </body>
 </html>

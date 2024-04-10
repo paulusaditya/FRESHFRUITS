@@ -81,14 +81,151 @@
     <header class="profile">
       <h2>FreshFruit</h2>
       <h1 style="margin-right: 90px">TRANSAKSI</h1>
-      <div id="profile"><i data-feather="user"></i></div>
+      <a
+        href="/HTML/akun.html"
+        id="profile"
+        ><i data-feather="user"></i
+      ></a>
     </header>
     <div id="batas"></div>
     <!-- Profile end -->
 
+    <!-- Kolom Manajemen Transaksi Start -->
+    <section class="container-manajemen-transaksi">
+      <div class="icon">
+        <div class="keterangan">
+          <span id="feather-icon"><i data-feather="table"></i></span>
+          <span>TRANSAKSI</span>
+        </div>
+      </div>
+
+      <!-- Fitur Search and Sort Start -->
+      <!-- Fitur Search Start -->
+      <div class="fitur-tambahan">
+        <div class="pencarian">
+          <form action="">
+            <button type="submit">Search</button>
+            <input
+              type="text"
+              name="cari"
+              placeholder="Search"
+              required
+            />
+          </form>
+        </div>
+
+        <!-- Fitur Sorting Start -->
+        <div class="sorting">
+          <form action="">
+            <label for="sort">SORT</label>
+            <select
+              name="sort"
+              id="sort"
+            >
+              <option value="nama">Tebaru</option>
+              <option value="harga">Terlama</option>
+            </select>
+          </form>
+        </div>
+      </div>
+      <!-- Fitur Search nd Sort End -->
+
+      <div class="kolom">
+        <table class="tb_transaksi">
+          <tr>
+            <th>Kode</th>
+            <th>Produk</th>
+            <th>Kuantitas</th>
+            <th>Total</th>
+            <th>Tgl Transaksi</th>
+            <th>Karyawan</th>
+            <th>Actions</th>
+          </tr>
+        </table>
+      </div>
+    </section>
+    <!-- Kolom Manajemen Transaksi End -->
+
+    <!-- Section Detail Laporan Start -->
+    <section class="container-detail-transaksi">
+      <div class="icon">
+        <div class="keterangan">
+          <span id="feather-icon"><i data-feather="table"></i></span>
+          <span>DETAIL TRANSAKSI</span>
+        </div>
+      </div>
+
+      <div class="kolom">
+        <form
+          action=""
+          class="range-period"
+        >
+          <h4>Choose Period</h4>
+          <input
+            type="date"
+            id="range-start"
+            name="range-start"
+            placeholder="Start Date"
+          />
+          <label>&gt;</label>
+          <input
+            type="date"
+            id="range-end"
+            name="range-end"
+            placeholder="End Date"
+          />
+        </form>
+        <table class="tabel periode">
+          <thead>
+            <tr>
+              <th>Periode Penjualan</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>dd-mm-yyyy Sampai dd-mm-yyyy</td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="tabel tb_detail_transaksi">
+          <tr>
+            <th>Kode</th>
+            <th>Produk</th>
+            <th>Kuantitas</th>
+            <th>Total</th>
+            <th>Tgl Transaksi</th>
+            <th>Karyawan</th>
+          </tr>
+        </table>
+      </div>
+    </section>
+    <!-- Section Detail Laporan End -->
+
+    <!-- Section Prediksi Permintaan Start -->
+    <section class="container-prediksi-permintaan">
+      <div class="icon">
+        <div class="keterangan">
+          <span id="feather-icon"><i data-feather="table"></i></span>
+          <span>PREDIKSI PERMINTAAN</span>
+        </div>
+      </div>
+
+      <div class="kolom">
+        <table class="tabel tb_prediksi_permintaan">
+          <tr>
+            <th>Kode</th>
+            <th>Prediksi Tanggal</th>
+            <th>Produk</th>
+            <th>Jumlah Permintaan Stok</th>
+          </tr>
+        </table>
+      </div>
+    </section>
+    <!-- Section Prediksi Permintaan End -->
+
     <script>
       feather.replace();
     </script>
-    <script src="/JAVASCRIPT/script.js"></script>
+    <script src="/JAVASCRIPT/transaksi.js"></script>
   </body>
 </html>
