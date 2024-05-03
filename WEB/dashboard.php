@@ -1,3 +1,9 @@
+<?php
+require '../PHP/crud-produk.php';
+$rows = query("SELECT karyawan.id, karyawan.nama, karyawan.email, posisi_karyawan.posisi FROM karyawan JOIN posisi_karyawan ON (karyawan.posisi = posisi_karyawan.kode)");
+
+?>
+ 
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -16,7 +22,7 @@
 
     <link
       rel="stylesheet"
-      href="/CSS/style-dashboard.css"
+      href="../CSS/style-dashboard.css"
     />
 
     <!-- Feather Icons -->
@@ -33,23 +39,23 @@
       </div>
       <div class="container-produk">
         <span class="icon"><i data-feather="shopping-cart"></i></span>
-        <a href="/HTML/produk.html" class="menu-nav">Produk</a>
+        <a href="produk.php" class="menu-nav">Produk</a>
       </div>
       <div class="container-transaksi">
         <span class="icon"><i data-feather="dollar-sign"></i></span>
-        <a href="/HTML/transaksi.html" class="menu-nav">Transaksi</a>
+        <a href="transaksi.php" class="menu-nav">Transaksi</a>
       </div>
       <div class="container-karyawan">
         <span class="icon"><i data-feather="users"></i></span>
-        <a href="/HTML/karyawan.html" class="menu-nav">Karyawan</a>
+        <a href="karyawan.php" class="menu-nav">Karyawan</a>
       </div>
       <div class="container-promosi">
         <span class="icon"><i data-feather="tag"></i></span>
-        <a href="/HTML/promosi.html" class="menu-nav">Promosi</a>
+        <a href="promosi.php" class="menu-nav">Promosi</a>
       </div>
       <div class="container-akun">
         <span class="icon"><i data-feather="user"></i></span>
-        <a href="/HTML/akun.html" class="menu-nav">Akun</a>
+        <a href="akun.php" class="menu-nav">Akun</a>
       </div>
     </nav>
     <!-- Navigasi End -->
@@ -58,7 +64,7 @@
     <header class="profile">
       <h2>FreshFruit</h2>
       <h1 style="margin-right: 90px;">DASHBOARD</h1>
-      <a href="/HTML/akun.html" id="profile"><i data-feather="user"></i></a>
+      <a href="akun.php" id="profile"><i data-feather="user"></i></a>
     </header>
     <div id="batas"></div>
     <!-- Profile end -->
@@ -71,7 +77,7 @@
           </div>
           <div class="keterangan">
             <h4>30</h4>
-            <a href="/HTML/produk.html">Produk</a>
+            <a href="produk.php">Produk</a>
           </div>
         </div>
         <div class="cards">
@@ -80,7 +86,7 @@
           </div>
           <div class="keterangan">          
             <h4>Rp 10.000.000</h4>
-            <a href="/HTML/transaksi.html">Income</a>
+            <a href="transaksi.php">Income</a>
           </div>
         </div>
         <div class="cards">
@@ -89,7 +95,7 @@
           </div>
           <div class="keterangan">
             <h4>10</h4>
-            <a href="/HTML/karyawan.html">Karyawan</a>
+            <a href="karyawan.php">Karyawan</a>
           </div>
         </div>
         <div class="cards">
@@ -132,8 +138,16 @@
             <th>No</th>
             <th>Nama</th>
             <th>Email</th>
-            <th>Alamat</th>
             <th>Posisi</th>
+          </tr>
+
+          <tr>
+            <?php foreach ( $rows as $row ): ?>
+              <td><?= $row['id']; ?></td>
+              <td><?= $row['nama']; ?></td>
+              <td><?= $row['email']; ?></td>
+              <td><?= $row['posisi']; ?></td>
+              <?php endforeach;?>
           </tr>
         </table>
       </div>

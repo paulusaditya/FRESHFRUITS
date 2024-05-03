@@ -1,3 +1,9 @@
+<?php
+require '../PHP/crud-produk.php';
+$rows = query("SELECT * FROM produk");
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -16,7 +22,7 @@
 
     <link
       rel="stylesheet"
-      href="/CSS/style-produk.css"
+      href="../CSS/style-produk.css"
     />
 
     <!-- Feather Icons -->
@@ -29,7 +35,7 @@
       <div class="container-dashboard">
         <span class="icon"><i data-feather="home"></i></span>
         <a
-          href="/HTML/dashboard.html"
+          href="dashboard.php"
           class="menu-nav dashboard"
           >Dashboard</a
         >
@@ -45,7 +51,7 @@
       <div class="container-transaksi">
         <span class="icon"><i data-feather="dollar-sign"></i></span>
         <a
-          href="/HTML/transaksi.html"
+          href="transaksi.php"
           class="menu-nav"
           >Transaksi</a
         >
@@ -53,7 +59,7 @@
       <div class="container-karyawan">
         <span class="icon"><i data-feather="users"></i></span>
         <a
-          href="/HTML/karyawan.html"
+          href="karyawan.php"
           class="menu-nav"
           >Karyawan</a
         >
@@ -61,7 +67,7 @@
       <div class="container-promosi">
         <span class="icon"><i data-feather="tag"></i></span>
         <a
-          href="/HTML/promosi.html"
+          href="promosi.php"
           class="menu-nav"
           >Promosi</a
         >
@@ -69,7 +75,7 @@
       <div class="container-akun">
         <span class="icon"><i data-feather="user"></i></span>
         <a
-          href="/HTML/akun.html"
+          href="akun.php"
           class="menu-nav"
           >Akun</a
         >
@@ -82,7 +88,7 @@
       <h2>FreshFruit</h2>
       <h1 style="margin-right: 90px">PRODUK</h1>
       <a
-        href="/HTML/akun.html"
+        href="akun.php"
         id="profile"
         ><i data-feather="user"></i
       ></a>
@@ -130,17 +136,32 @@
             <span id="feather-icon"><i data-feather="table"></i></span>
             <span>PRODUK</span>
           </div>
-          <div class="tambah-data"><a href="/HTML/form-tambah-produk.html">ADD NEW</a></div>
+          <div class="tambah-data"><a href="form-tambah-produk.php">ADD NEW</a></div>
         </div>
         <table class="tb_produk">
           <tr>
-            <th>Id</th>
-            <th>Nama</th>
+            <th>kode</th>
+            <th>Nama Produk</th>
             <th>Harga</th>
+            <th>Berat</th>
+            <th>Tanggal<br>Kadaluarsa</th>
             <th>Stok</th>
-            <th>Tgl Kadaluarsa</th>
             <th>Actions</th>
           </tr>
+            <?php foreach ($rows as $row) :?>
+              <tr>
+                <td><?= $row['kode'] ?></td>
+                <td><?= $row['nama_produk']?></td>
+                <td><?= $row['harga']?></td>
+                <td><?= $row['berat']?></td>
+                <td><?= $row['tanggal_kadaluarsa']?></td>
+                <td><?= $row['stok']?></td>
+                <td>
+                  <div class="btn_edit"><a href="form-edit-produk.php?kode=<?= $row['kode']?>">E</a></div>
+                  <div class="btn_hapus"><a href="../PHP/hapus.php?kode=<?= $row['kode']?>" onclick="return confirm('apa Anda yakin mau menghapus?')" >x</a></div>
+                </td>
+              </tr>
+                <?php endforeach; ?>
         </table>
       </div>
     </section>
@@ -148,6 +169,6 @@
     <script>
       feather.replace();
     </script>
-    <script src="/JAVASCRIPT/produk.js"></script>
+    <!-- <script src="/JAVASCRIPT/produk.js"></script> -->
   </body>
 </html>

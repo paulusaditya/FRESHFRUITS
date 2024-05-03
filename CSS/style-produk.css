@@ -255,7 +255,7 @@ body {
   width: 40px;
   height: auto;
   border-radius: 5px;
-  background-color: var(--transparent-primary);
+  background-color: rgb(207, 207, 42);
   text-decoration: none;
   color: white;
   border-width: 0.5px;
@@ -276,7 +276,12 @@ th {
   background-color: rgb(219, 210, 210);
 }
 
-td:nth-child(6) {
+td:nth-child(7) {
   display: flex;
+  border: none;
+}
+
+tr:not(:last-child) {
+  border-bottom: 1px solid black;
 }
 /* Kolom Manajemen Produk End */

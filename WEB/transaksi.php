@@ -1,3 +1,13 @@
+<?php
+require '../PHP/crud-produk.php';
+$rows = query("SELECT transaksi.kode, produk.nama_produk, detail_transaksi.kuantitas, detail_transaksi.total, transaksi.tanggal, karyawan.nama 
+                FROM transaksi 
+                JOIN detail_transaksi ON transaksi.kode = detail_transaksi.kode
+                JOIN karyawan ON transaksi.karyawan = karyawan.id
+                JOIN produk ON detail_transaksi.produk_terjual = produk.kode
+              ");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -16,7 +26,7 @@
 
     <link
       rel="stylesheet"
-      href="/CSS/style-transaksi.css"
+      href="../CSS/style-transaksi.css"
     />
 
     <!-- Feather Icons -->
@@ -29,7 +39,7 @@
       <div class="container-dashboard">
         <span class="icon"><i data-feather="home"></i></span>
         <a
-          href="/HTML/dashboard.html"
+          href="dashboard.php"
           class="menu-nav dashboard"
           >Dashboard</a
         >
@@ -37,7 +47,7 @@
       <div class="container-produk">
         <span class="icon"><i data-feather="shopping-cart"></i></span>
         <a
-          href="/HTML/produk.html"
+          href="produk.php"
           class="menu-nav"
           >Produk</a
         >
@@ -53,7 +63,7 @@
       <div class="container-karyawan">
         <span class="icon"><i data-feather="users"></i></span>
         <a
-          href="/HTML/karyawan.html"
+          href="karyawan.php"
           class="menu-nav"
           >Karyawan</a
         >
@@ -61,7 +71,7 @@
       <div class="container-promosi">
         <span class="icon"><i data-feather="tag"></i></span>
         <a
-          href="/HTML/promosi.html"
+          href="promosi.php"
           class="menu-nav"
           >Promosi</a
         >
@@ -69,7 +79,7 @@
       <div class="container-akun">
         <span class="icon"><i data-feather="user"></i></span>
         <a
-          href="/HTML/akun.html"
+          href="akun.php"
           class="menu-nav"
           >Akun</a
         >
@@ -82,7 +92,7 @@
       <h2>FreshFruit</h2>
       <h1 style="margin-right: 90px">TRANSAKSI</h1>
       <a
-        href="/HTML/akun.html"
+        href="akun.php"
         id="profile"
         ><i data-feather="user"></i
       ></a>
@@ -141,6 +151,20 @@
             <th>Karyawan</th>
             <th>Actions</th>
           </tr>
+
+          <?php foreach ($rows as $row) : ?>
+            <tr>
+              <td><?=$row['kode']?></td>
+              <td><?=$row['nama_produk']?></td>
+              <td><?=$row['kuantitas']?></td>
+              <td><?=$row['total']?></td>
+              <td><?=$row['tanggal']?></td>
+              <td><?=$row['nama']?></td>
+              <td>
+                ex
+              </td>
+            </tr>
+            <?php endforeach; ?>
         </table>
       </div>
     </section>
@@ -226,6 +250,5 @@
     <script>
       feather.replace();
     </script>
-    <script src="/JAVASCRIPT/transaksi.js"></script>
   </body>
 </html>

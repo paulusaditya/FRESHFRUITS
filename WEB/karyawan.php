@@ -1,3 +1,17 @@
+<?php
+require '../PHP/crud-produk.php';
+
+$rows = query("SELECT karyawan.id, karyawan.nama, karyawan.email, CONCAT(alamat.alamat, ', ', alamat.kota, ', ', alamat.provinsi) AS alamat, posisi_karyawan.posisi, admin.nama AS manager
+FROM karyawan
+JOIN alamat ON karyawan.alamat = alamat.kode
+JOIN posisi_karyawan ON karyawan.posisi = posisi_karyawan.kode
+JOIN admin ON karyawan.manager = admin.id;
+
+");
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -16,7 +30,7 @@
 
     <link
       rel="stylesheet"
-      href="/CSS/style-karyawan.css"
+      href="../CSS/style-karyawan.css"
     />
 
     <!-- Feather Icons -->
@@ -29,7 +43,7 @@
       <div class="container-dashboard">
         <span class="icon"><i data-feather="home"></i></span>
         <a
-          href="/HTML/dashboard.html"
+          href="dashboard.php"
           class="menu-nav dashboard"
           >Dashboard</a
         >
@@ -37,7 +51,7 @@
       <div class="container-produk">
         <span class="icon"><i data-feather="shopping-cart"></i></span>
         <a
-          href="/HTML/produk.html"
+          href="produk.php"
           class="menu-nav"
           >Produk</a
         >
@@ -45,7 +59,7 @@
       <div class="container-transaksi">
         <span class="icon"><i data-feather="dollar-sign"></i></span>
         <a
-          href="/HTML/transaksi.html"
+          href="transaksi.php"
           class="menu-nav"
           >Transaksi</a
         >
@@ -61,7 +75,7 @@
       <div class="container-promosi">
         <span class="icon"><i data-feather="tag"></i></span>
         <a
-          href="/HTML/promosi.html"
+          href="promosi.php"
           class="menu-nav"
           >Promosi</a
         >
@@ -69,7 +83,7 @@
       <div class="container-akun">
         <span class="icon"><i data-feather="user"></i></span>
         <a
-          href="/HTML/akun.html"
+          href="akun.php"
           class="menu-nav"
           >Akun</a
         >
@@ -82,7 +96,7 @@
       <h2>FreshFruit</h2>
       <h1 style="margin-right: 90px">MANAJEMEN KARYAWAN</h1>
       <a
-        href="/HTML/akun.html"
+        href="akun.php"
         id="profile"
         ><i data-feather="user"></i
       ></a>
@@ -106,14 +120,15 @@
 
     <!-- Kolom Manajemen Karyawan Start -->
     <section class="container-manajemen-karyawan">
-      <div class="kolom karyawan">
-        <div class="icon">
-          <div class="keterangan">
-            <span id="feather-icon"><i data-feather="table"></i></span>
-            <span>KARYAWAN</span>
-          </div>
-          <div class="tambah-data"><a href="/HTML/form-tambah-karyawan.html">ADD NEW</a></div>
+      <div class="icon">
+        <div class="keterangan">
+          <span id="feather-icon"><i data-feather="table"></i></span>
+          <span>KARYAWAN</span>
         </div>
+        <div class="tambah-data"><a href="/HTML/form-tambah-karyawan.html">ADD NEW</a></div>
+      </div>
+
+      <div class="kolom karyawan">
         <table class="tb_karyawan">
           <tr>
             <th>Id</th>
@@ -121,8 +136,24 @@
             <th>Email</th>
             <th>Alamat</th>
             <th>Posisi</th>
+            <th>Manager</th>
             <th>Actions</th>
           </tr>
+
+          <?php foreach ($rows as $row) :?>
+          <tr>
+            <td><?= $row['id'] ?></td>
+            <td><?= $row['nama']?></td>
+            <td><?= $row['email']?></td>
+            <td><?= $row['alamat']?></td>
+            <td><?= $row['posisi']?></td>
+            <td><?= $row['manager']?></td>
+            <td>
+              <div class="btn_edit"><a href="form-edit-produk.php">E</a></div>
+              <div class="btn_hapus"><a href="..PHP/hapus-karyawan.php">x</a></div>
+            </td>
+          </tr>
+          <?php endforeach; ?>
         </table>
       </div>
     </section>
@@ -130,6 +161,5 @@
     <script>
       feather.replace();
     </script>
-    <script src="/JAVASCRIPT/karyawan.js"></script>
   </body>
 </html>

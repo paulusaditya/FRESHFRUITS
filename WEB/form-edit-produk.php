@@ -1,3 +1,34 @@
+<?php
+require '../PHP/crud-produk.php';
+
+$kode = $_GET['kode'];
+
+$rows = query("SELECT * FROM produk WHERE kode='$kode'")[0];
+
+if ( isset($_POST['submit']) ){
+  if (ubah($_POST) > 0){
+    echo "
+    <script>
+        alert('data berhasil diubah');
+        document.location.href = 'produk.php';
+        exit;
+    </script>
+    ";
+  } else {
+    echo "
+    <script>
+        alert('data gagal diubah');
+        document.location.href = 'produk.php';
+        exit;
+    </script>
+    ";
+  }
+}
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -6,7 +37,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
-    <title>Tambah Produk</title>
+    <title>Edit Produk</title>
 
     <!-- Google Font -->
     <link
@@ -16,7 +47,7 @@
 
     <link
       rel="stylesheet"
-      href="/CSS/style-ft-produk.css"
+      href="../CSS/style-ft-produk.css"
     />
 
     <!-- Feather Icons -->
@@ -29,7 +60,7 @@
       <div class="container-dashboard">
         <span class="icon"><i data-feather="home"></i></span>
         <a
-          href="/HTML/dashboard.html"
+          href="dashboard.php"
           class="menu-nav dashboard"
           >Dashboard</a
         >
@@ -37,7 +68,7 @@
       <div class="container-produk">
         <span class="icon utama"><i data-feather="shopping-cart"></i></span>
         <a
-          href="/HTML/produk.html"
+          href="produk.php"
           class="menu-nav"
           >Produk</a
         >
@@ -45,7 +76,7 @@
       <div class="container-transaksi">
         <span class="icon"><i data-feather="dollar-sign"></i></span>
         <a
-          href="/HTML/transaksi.html"
+          href="transaksi.php"
           class="menu-nav"
           >Transaksi</a
         >
@@ -53,7 +84,7 @@
       <div class="container-karyawan">
         <span class="icon"><i data-feather="users"></i></span>
         <a
-          href="/HTML/karyawan.html"
+          href="karyawan.php"
           class="menu-nav"
           >Karyawan</a
         >
@@ -61,7 +92,7 @@
       <div class="container-promosi">
         <span class="icon"><i data-feather="tag"></i></span>
         <a
-          href="/HTML/promosi.html"
+          href="promosi.php"
           class="menu-nav"
           >Promosi</a
         >
@@ -69,7 +100,7 @@
       <div class="container-akun">
         <span class="icon"><i data-feather="user"></i></span>
         <a
-          href="/HTML/akun.html"
+          href="akun.php"
           class="menu-nav"
           >Akun</a
         >
@@ -82,7 +113,7 @@
       <h2>FreshFruit</h2>
       <h1 style="margin-right: 90px">PRODUK</h1>
       <a
-        href="/HTML/akun.html"
+        href="akun.php"
         id="profile"
         ><i data-feather="user"></i
       ></a>
@@ -96,34 +127,47 @@
         <div class="icon">
           <div class="keterangan">
             <span id="feather-icon"><i data-feather="table"></i></span>
-            <span>ADD PRODUCT</span>
+            <span>EDIT PRODUCT</span>
           </div>
         </div>
-        <form action="">
-          <label for="nama">Nama Produk</label><br />
+        <form action="" method="POST">
+          <label for="kode">Kode Buah</label><br />
           <input
             type="text"
-            id="nama"
-            name="nama"
+            id="kode"
+            name="kode"
+            placeholder="P00X"
+            value="<?= $rows['kode'] ?>"
+            required
+          /><br />
+
+          <label for="nama_produk">Produk</label><br />
+          <input
+            type="text"
+            id="nama_produk"
+            name="nama_produk"
             placeholder="Product Name"
+            value="<?= $rows['nama_produk'] ?>"
             required
           /><br />
 
           <label for="harga">Harga</label><br />
           <input
-            type="text"
+            type="number"
             id="harga"
             name="harga"
             placeholder="Rp. xxxxx"
+            value="<?= $rows['harga'] ?>"
             required
           /><br />
 
-          <label for="stok">Stok</label><br />
+          <label for="berat">Berat</label><br />
           <input
             type="text"
-            id="stok"
-            name="stok"
-            placeholder="Stock"
+            id="berat"
+            name="berat"
+            placeholder="123kg"
+            value="<?= $rows['berat'] ?>"
             required
           /><br />
 
@@ -132,23 +176,38 @@
             type="date"
             id="tanggal"
             name="tanggal"
+            value="<?= $rows['tanggal_kadaluarsa'] ?>"
             required
           /><br />
-        </form>
 
-        <button
+          <label for="stok">Stok</label><br />
+          <input
+            type="number"
+            id="stok"
+            name="stok"
+            step="2"
+            placeholder="Stock"
+            value="<?= $rows['stok'] ?>"
+            required
+          /><br />
+
+          <button
           type="submit"
+          name = "submit"
           style="cursor: pointer"
         >
-          Tambah
+          Submit
         </button>
+
         <button
           type="reset"
           style="cursor: pointer"
           id="reset"
+          name="reset"
         >
           Reset
         </button>
+        </form>
       </div>
     </div>
 
