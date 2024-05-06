@@ -76,11 +76,11 @@ if (isset($_POST['submit'])){
         >
       </div>
       <div class="container-promosi">
-        <span class="icon"><i data-feather="tag"></i></span>
+        <span class="icon"><i data-feather="table"></i></span>
         <a
-          href="promosi.php"
+          href="data_proses.php"
           class="menu-nav"
-          >Promosi</a
+          >Data Proses</a
         >
       </div>
       <div class="container-akun">

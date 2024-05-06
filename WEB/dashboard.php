@@ -50,8 +50,8 @@ $rows = query("SELECT karyawan.id, karyawan.nama, karyawan.email, posisi_karyawa
         <a href="karyawan.php" class="menu-nav">Karyawan</a>
       </div>
       <div class="container-promosi">
-        <span class="icon"><i data-feather="tag"></i></span>
-        <a href="promosi.php" class="menu-nav">Promosi</a>
+        <span class="icon"><i data-feather="table"></i></span>
+        <a href="data_proses.php" class="menu-nav">Data Proses</a>
       </div>
       <div class="container-akun">
         <span class="icon"><i data-feather="user"></i></span>
@@ -128,10 +128,11 @@ $rows = query("SELECT karyawan.id, karyawan.nama, karyawan.email, posisi_karyawa
           </tr>
         </table>
       </div>
+
       <div class="kolom karyawan">
         <div class="icon">
           <span><i data-feather="table"></i></span>
-          <h4>PRODUK TERLARIS</h4>
+          <h4>KARYAWAN</h4>
         </div>
         <table class="tb_karyawan">
           <tr>

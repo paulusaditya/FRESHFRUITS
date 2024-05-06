@@ -16,7 +16,7 @@
 
     <link
       rel="stylesheet"
-      href="/CSS/style-akun.css"
+      href="../CSS/style-akun.css"
     />
 
     <!-- Feather Icons -->
@@ -29,7 +29,7 @@
       <div class="container-dashboard">
         <span class="icon"><i data-feather="home"></i></span>
         <a
-          href="/HTML/dashboard.html"
+          href="dashboard.php"
           class="menu-nav dashboard"
           >Dashboard</a
         >
@@ -37,7 +37,7 @@
       <div class="container-produk">
         <span class="icon"><i data-feather="shopping-cart"></i></span>
         <a
-          href="/HTML/produk.html"
+          href="produk.php"
           class="menu-nav"
           >Produk</a
         >
@@ -45,7 +45,7 @@
       <div class="container-transaksi">
         <span class="icon"><i data-feather="dollar-sign"></i></span>
         <a
-          href="/HTML/transaksi.html"
+          href="transaksi.php"
           class="menu-nav"
           >Transaksi</a
         >
@@ -53,17 +53,17 @@
       <div class="container-karyawan">
         <span class="icon"><i data-feather="users"></i></span>
         <a
-          href="/HTML/karyawan.html"
+          href="karyawan.php"
           class="menu-nav"
           >Karyawan</a
         >
       </div>
       <div class="container-promosi">
-        <span class="icon"><i data-feather="tag"></i></span>
+        <span class="icon"><i data-feather="table"></i></span>
         <a
-          href="/HTML/promosi.html"
+          href="data_proses.php"
           class="menu-nav"
-          >Promosi</a
+          >Data Proses</a
         >
       </div>
       <div class="container-akun">
@@ -129,6 +129,6 @@
     <script>
       feather.replace();
     </script>
-    <script src="/JAVASCRIPT/script.js"></script>
+    <script src="../JAVASCRIPT/script.js"></script>
   </body>
 </html>

@@ -73,11 +73,11 @@ JOIN admin ON karyawan.manager = admin.id;
         >
       </div>
       <div class="container-promosi">
-        <span class="icon"><i data-feather="tag"></i></span>
+        <span class="icon"><i data-feather="table"></i></span>
         <a
-          href="promosi.php"
+          href="data_proses.php"
           class="menu-nav"
-          >Promosi</a
+          >Data Proses</a
         >
       </div>
       <div class="container-akun">
@@ -125,7 +125,7 @@ JOIN admin ON karyawan.manager = admin.id;
           <span id="feather-icon"><i data-feather="table"></i></span>
           <span>KARYAWAN</span>
         </div>
-        <div class="tambah-data"><a href="/HTML/form-tambah-karyawan.html">ADD NEW</a></div>
+        <div class="tambah-data"><a href="form-tambah-karyawan.php">ADD NEW</a></div>
       </div>
 
       <div class="kolom karyawan">
@@ -149,7 +149,7 @@ JOIN admin ON karyawan.manager = admin.id;
             <td><?= $row['posisi']?></td>
             <td><?= $row['manager']?></td>
             <td>
-              <div class="btn_edit"><a href="form-edit-produk.php">E</a></div>
+              <div class="btn_edit"><a href="form-edit-karyawan.php">E</a></div>
               <div class="btn_hapus"><a href="..PHP/hapus-karyawan.php">x</a></div>
             </td>
           </tr>

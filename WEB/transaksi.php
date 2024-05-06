@@ -1,10 +1,25 @@
 <?php
 require '../PHP/crud-produk.php';
-$rows = query("SELECT transaksi.kode, produk.nama_produk, detail_transaksi.kuantitas, detail_transaksi.total, transaksi.tanggal, karyawan.nama 
-                FROM transaksi 
-                JOIN detail_transaksi ON transaksi.kode = detail_transaksi.kode
-                JOIN karyawan ON transaksi.karyawan = karyawan.id
-                JOIN produk ON detail_transaksi.produk_terjual = produk.kode
+// $rows = query("SELECT detail_transaksi.id, transaksi.kode, produk.nama_produk, detail_transaksi.kuantitas, detail_transaksi.total, transaksi.tanggal, karyawan.nama 
+//                 FROM detail_transaksi 
+//                 JOIN transaksi ON detail_transaksi.id = transaksi.kode
+//                 JOIN karyawan ON transaksi.karyawan = karyawan.id
+//                 JOIN produk ON detail_transaksi.produk_terjual = produk.kode
+//               ");
+
+
+$rows = query("SELECT  
+              detail_transaksi.kode_transaksi, 
+              produk.nama_produk, 
+              detail_transaksi.kuantitas, 
+              detail_transaksi.total, 
+              transaksi.tanggal, 
+              karyawan.nama 
+              FROM 
+              transaksi 
+              JOIN detail_transaksi ON detail_transaksi.kode_transaksi = transaksi.kode
+              JOIN karyawan ON transaksi.karyawan = karyawan.id
+              JOIN produk ON detail_transaksi.produk_terjual = produk.kode
               ");
 ?>
 
@@ -69,11 +84,11 @@ $rows = query("SELECT transaksi.kode, produk.nama_produk, detail_transaksi.kuant
         >
       </div>
       <div class="container-promosi">
-        <span class="icon"><i data-feather="tag"></i></span>
+        <span class="icon"><i data-feather="table"></i></span>
         <a
-          href="promosi.php"
+          href="data_proses.php"
           class="menu-nav"
-          >Promosi</a
+          >Data Proses</a
         >
       </div>
       <div class="container-akun">
@@ -143,7 +158,7 @@ $rows = query("SELECT transaksi.kode, produk.nama_produk, detail_transaksi.kuant
       <div class="kolom">
         <table class="tb_transaksi">
           <tr>
-            <th>Kode</th>
+            <th>Kode Transaksi</th>
             <th>Produk</th>
             <th>Kuantitas</th>
             <th>Total</th>
@@ -154,7 +169,7 @@ $rows = query("SELECT transaksi.kode, produk.nama_produk, detail_transaksi.kuant
 
           <?php foreach ($rows as $row) : ?>
             <tr>
-              <td><?=$row['kode']?></td>
+              <td><?=$row['kode_transaksi']?></td>
               <td><?=$row['nama_produk']?></td>
               <td><?=$row['kuantitas']?></td>
               <td><?=$row['total']?></td>
@@ -175,7 +190,7 @@ $rows = query("SELECT transaksi.kode, produk.nama_produk, detail_transaksi.kuant
       <div class="icon">
         <div class="keterangan">
           <span id="feather-icon"><i data-feather="table"></i></span>
-          <span>DETAIL TRANSAKSI</span>
+          <span>LAPORAN TRANSAKSI</span>
         </div>
       </div>
 

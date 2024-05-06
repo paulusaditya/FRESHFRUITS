@@ -217,22 +217,22 @@ body {
 
 /* header tabel promosi */
 
-.container-promosi-3 {
+.container-data-proses {
   display: flex;
   justify-content: start;
   flex-direction: column;
   margin-left: 300px;
   margin-top: 15px;
   width: 1350px;
-  height: auto;
+  height: 1000px;
   border: 1px solid rgb(141, 141, 141);
   border-radius: 7px;
   padding: 10px;
 }
 
-.container-promosi-3 .kolom .tabel {
+.container-data-proses .tabel {
   width: 100%;
-  height: 80px;
+  height: 100%;
   border: 1px solid rgb(141, 141, 141);
   border-radius: 7px;
   text-align: center;
@@ -241,9 +241,10 @@ body {
   justify-content: center;
   align-items: center;
   padding-top: 10px;
+  background-color: white;
 }
 
-.container-promosi-3 .icon {
+.container-data-proses .icon {
   display: flex;
   align-items: center;
   width: 100%;
@@ -251,47 +252,52 @@ body {
   border-bottom: 4.5px solid var(--primary);
 }
 
-.container-promosi-3 .icon .keterangan {
+.container-data-proses .icon .keterangan {
   font-weight: bold;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 177px;
+  width: 210px;
 }
 
-.container-promosi-3 .kolom .tabel .btn-act {
+/* .container-data-proses .kolom .tabel .btn-act {
   background-color: red;
   width: 50px;
   height: 25px;
   border-radius: 50px;
   cursor: pointer;
   /* border: 1px solid rgb(141, 141, 141); */
-}
+/* }
 
-.container-promosi-3 .kolom .tabel .btn-act .nonactive-btn {
+/* .container-data-proses .kolom .tabel .btn-act .nonactive-btn {
   background-color: rgb(255, 255, 255);
   width: 25px;
   height: 25px;
   border-radius: 50%;
   border: 1px solid rgb(141, 141, 141);
   transition: 0.2s;
-}
+} */
 
-.container-promosi-3 .kolom .tabel .btn-act .active-btn {
+/* .container-data-proses .kolom .tabel .btn-act .active-btn {
   transform: translateX(25px);
   transition: 0.2s;
-}
+} */
 
-.container-promosi-3 .kolom .tabel .action {
+/* .container-data-proses .kolom .tabel .action {
   width: 25px;
   height: 25px;
   background-color: red;
   color: white;
   border-radius: 8px;
   cursor: pointer;
-}
+} */
 
-td {
-  /* border: 1px solid black; */
-  padding: 10px 70px 10px 50px;
+table,
+th,
+td,
+tr {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 5px 10px;
+  text-align: center;
 }

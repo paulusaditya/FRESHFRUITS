@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
-    <title>Tambah Karyawan</title>
+    <title>Edit Karyawan</title>
 
     <!-- Google Font -->
     <link
@@ -16,7 +16,7 @@
 
     <link
       rel="stylesheet"
-      href="/CSS/style-ft-karyawan.css"
+      href="../CSS/style-fe-karyawan.css"
     />
 
     <!-- Feather Icons -->
@@ -29,7 +29,7 @@
       <div class="container-dashboard">
         <span class="icon"><i data-feather="home"></i></span>
         <a
-          href="/HTML/dashboard.html"
+          href="dashboard.php"
           class="menu-nav dashboard"
           >Dashboard</a
         >
@@ -37,7 +37,7 @@
       <div class="container-produk">
         <span class="icon"><i data-feather="shopping-cart"></i></span>
         <a
-          href="/HTML/produk.html"
+          href="produk.php"
           class="menu-nav"
           >Produk</a
         >
@@ -45,7 +45,7 @@
       <div class="container-transaksi">
         <span class="icon"><i data-feather="dollar-sign"></i></span>
         <a
-          href="/HTML/transaksi.html"
+          href="transaksi.php"
           class="menu-nav"
           >Transaksi</a
         >
@@ -53,23 +53,23 @@
       <div class="container-karyawan">
         <span class="icon utama"><i data-feather="users"></i></span>
         <a
-          href="/HTML/karyawan.html"
+          href="karyawan.php"
           class="menu-nav"
           >Karyawan</a
         >
       </div>
       <div class="container-promosi">
-        <span class="icon"><i data-feather="tag"></i></span>
+        <span class="icon"><i data-feather="table"></i></span>
         <a
-          href="/HTML/promosi.html"
+          href="data_proses.php"
           class="menu-nav"
-          >Promosi</a
+          >Data Proses</a
         >
       </div>
       <div class="container-akun">
         <span class="icon"><i data-feather="user"></i></span>
         <a
-          href="/HTML/akun.html"
+          href="akun.php"
           class="menu-nav"
           >Akun</a
         >
@@ -82,7 +82,7 @@
       <h2>FreshFruit</h2>
       <h1 style="margin-right: 90px">MANAJEMEN KARYAWAN</h1>
       <a
-        href="/HTML/akun.html"
+        href="akun.php"
         id="profile"
         ><i data-feather="user"></i
       ></a>
@@ -96,16 +96,28 @@
         <div class="icon">
           <div class="keterangan">
             <span id="feather-icon"><i data-feather="table"></i></span>
-            <span>ADD KARYAWAN</span>
+            <span>EDIT KARYAWAN</span>
           </div>
         </div>
-        <form action="">
-          <label for="nama">Nama</label><br />
+        <form
+          action=""
+          method="POST"
+        >
+          <label for="id">Id</label><br />
+          <input
+            type="text"
+            id="id"
+            name="id"
+            placeholder="K00X"
+            required
+          /><br />
+
+          <label for="nama">Nama Karyawan</label><br />
           <input
             type="text"
             id="nama"
             name="nama"
-            placeholder="Full Name"
+            placeholder="Employee Name"
             required
           /><br />
 
@@ -114,7 +126,25 @@
             type="email"
             id="email"
             name="email"
-            placeholder="example@mail.com"
+            placeholder="email@example.com"
+            required
+          /><br />
+
+          <label for="password">Password</label><br />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Their Password"
+            required
+          /><br />
+
+          <label for="password">Konfirmasi Password</label><br />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Their Password"
             required
           /><br />
 
@@ -123,34 +153,38 @@
             type="text"
             id="alamat"
             name="alamat"
+            step="2"
             placeholder="Address"
             required
           /><br />
 
-          <label for="posisi">Posisi</label><br />
-          <select
-            id="posisi"
-            name="posisi"
-          >
-            <option value="kasir">Kasir</option>
-            <option value="kurir">Kurir</option>
-            <option value="sales">Sales</option></select
-          ><br />
-        </form>
+          <label for="posisi_karyawan">Posisi Karyawan</label><br />
+          <input
+            type="text"
+            id="posisi_karyawan"
+            name="posisi_karyawan"
+            step="2"
+            placeholder="Position"
+            required
+          /><br />
 
-        <button
-          type="submit"
-          style="cursor: pointer"
-        >
-          Tambah
-        </button>
-        <button
-          type="reset"
-          style="cursor: pointer"
-          id="reset"
-        >
-          Reset
-        </button>
+          <button
+            type="submit"
+            name="submit"
+            style="cursor: pointer"
+          >
+            Submit
+          </button>
+
+          <button
+            type="reset"
+            style="cursor: pointer"
+            id="reset"
+            name="reset"
+          >
+            Reset
+          </button>
+        </form>
       </div>
     </div>
 

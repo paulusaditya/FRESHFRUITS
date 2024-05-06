@@ -6,6 +6,6 @@ btn.addEventListener('click', function (e) {
   if (!active_btn.classList.contains('active-btn')) {
     btn.style.backgroundColor = 'red';
   } else {
-    btn.style.backgroundColor = 'green';
+    btn.style.backgroundColor = 'lime';
   }
 });
