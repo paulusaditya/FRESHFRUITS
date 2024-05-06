@@ -1,3 +1,24 @@
+<?php
+require "../PHP/crud-karyawan.php";
+
+$posisi_k = query("SELECT * FROM posisi_karyawan");
+
+
+// Tambah data
+if (isset($_POST['submit'])){
+  if (tambah($_POST) > 0){
+      echo "Data Berhasil Ditambahkan!";
+      header("Location: karyawan.php");
+      exit();
+      
+  } else{
+      echo "Gagal menambah data!";
+  }
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -42,6 +63,14 @@
           >Produk</a
         >
       </div>
+      <div class="container-karyawan">
+        <span class="icon utama"><i data-feather="users"></i></span>
+        <a
+          href="karyawan.php"
+          class="menu-nav"
+          >Karyawan</a
+        >
+      </div>
       <div class="container-transaksi">
         <span class="icon"><i data-feather="dollar-sign"></i></span>
         <a
@@ -50,13 +79,13 @@
           >Transaksi</a
         >
       </div>
-      <div class="container-karyawan">
-        <span class="icon utama"><i data-feather="users"></i></span>
-        <a
-          href="karyawan.php"
-          class="menu-nav"
-          >Karyawan</a
-        >
+      <div class="container-report">
+          <span class="icon"><i data-feather="file-text"></i></span>
+          <a
+            href="report.php"
+            class="menu-nav"
+            >Report</a
+          >
       </div>
       <div class="container-promosi">
         <span class="icon"><i data-feather="table"></i></span>
@@ -102,6 +131,7 @@
         <form
           action=""
           method="POST"
+          onsubmit="return validatePassword()"
         >
           <label for="id">Id</label><br />
           <input
@@ -139,11 +169,11 @@
             required
           /><br />
 
-          <label for="password">Konfirmasi Password</label><br />
+          <label for="password-confirm">Konfirmasi Password</label><br />
           <input
             type="password"
-            id="password"
-            name="password"
+            id="password-confirm"
+            name="password-confirm"
             placeholder="Their Password"
             required
           /><br />
@@ -153,20 +183,44 @@
             type="text"
             id="alamat"
             name="alamat"
-            step="2"
             placeholder="Address"
+            required
+          /><br />
+
+          <label for="kota">Kota</label><br />
+          <input
+            type="text"
+            id="kota"
+            name="kota"
+            placeholder="City"
+            required
+          /><br />
+
+          <label for="provinsi">Provinsi</label><br />
+          <input
+            type="text"
+            id="provinsi"
+            name="provinsi"
+            placeholder="Province"
             required
           /><br />
 
           <label for="posisi_karyawan">Posisi Karyawan</label><br />
           <input
-            type="text"
-            id="posisi_karyawan"
-            name="posisi_karyawan"
-            step="2"
-            placeholder="Position"
-            required
-          /><br />
+              type="text"
+              id="posisi_karyawan"
+              name="posisi_karyawan"
+              list="posisi_karyawan_list"
+              placeholder="Position"
+              required
+          />
+          <datalist id="posisi_karyawan_list">
+              <?php foreach ($posisi_k as $posisi) : ?>
+              <option value="<?= htmlspecialchars($posisi["kode"])?>"><?= htmlspecialchars($posisi["posisi"])?></option>
+              <?php endforeach; ?>
+          </datalist>
+          
+          <br />
 
           <button
             type="submit"
@@ -192,5 +246,7 @@
     <script>
       feather.replace();
     </script>
+
+    <script src="../JAVASCRIPT/karyawan.js"></script>
   </body>
 </html>

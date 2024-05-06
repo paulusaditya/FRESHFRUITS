@@ -4,6 +4,7 @@ require '../PHP/crud-produk.php';
 $kode = $_GET['kode'];
 
 $rows = query("SELECT * FROM produk WHERE kode='$kode'")[0];
+// var_dump($rows);
 
 if ( isset($_POST['submit']) ){
   if (ubah($_POST) > 0){
@@ -73,6 +74,14 @@ if ( isset($_POST['submit']) ){
           >Produk</a
         >
       </div>
+      <div class="container-karyawan">
+        <span class="icon"><i data-feather="users"></i></span>
+        <a
+          href="karyawan.php"
+          class="menu-nav"
+          >Karyawan</a
+        >
+      </div>
       <div class="container-transaksi">
         <span class="icon"><i data-feather="dollar-sign"></i></span>
         <a
@@ -81,13 +90,13 @@ if ( isset($_POST['submit']) ){
           >Transaksi</a
         >
       </div>
-      <div class="container-karyawan">
-        <span class="icon"><i data-feather="users"></i></span>
-        <a
-          href="karyawan.php"
-          class="menu-nav"
-          >Karyawan</a
-        >
+      <div class="container-report">
+          <span class="icon"><i data-feather="file-text"></i></span>
+          <a
+            href="report.php"
+            class="menu-nav"
+            >Report</a
+          >
       </div>
       <div class="container-promosi">
         <span class="icon"><i data-feather="table"></i></span>

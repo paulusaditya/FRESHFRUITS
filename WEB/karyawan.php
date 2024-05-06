@@ -1,7 +1,7 @@
 <?php
-require '../PHP/crud-produk.php';
+require '../PHP/crud-karyawan.php';
 
-$rows = query("SELECT karyawan.id, karyawan.nama, karyawan.email, CONCAT(alamat.alamat, ', ', alamat.kota, ', ', alamat.provinsi) AS alamat, posisi_karyawan.posisi, admin.nama AS manager
+$rows = query("SELECT karyawan.id, karyawan.nama, karyawan.email, alamat.kode AS kode_alamat, CONCAT(alamat.alamat, ', ', alamat.kota, ', ', alamat.provinsi) AS alamat, posisi_karyawan.posisi, admin.nama AS manager
 FROM karyawan
 JOIN alamat ON karyawan.alamat = alamat.kode
 JOIN posisi_karyawan ON karyawan.posisi = posisi_karyawan.kode
@@ -9,7 +9,12 @@ JOIN admin ON karyawan.manager = admin.id;
 
 ");
 
+// var_dump($rows);
 
+
+if ( isset($_POST["cari"]) ){
+  $rows = cari($_POST['keyword']);
+}
 ?>
 
 <!DOCTYPE html>
@@ -56,6 +61,14 @@ JOIN admin ON karyawan.manager = admin.id;
           >Produk</a
         >
       </div>
+      <div class="container-karyawan">
+        <span class="icon utama"><i data-feather="users"></i></span>
+        <a
+          href="#"
+          class="menu-nav"
+          >Karyawan</a
+        >
+      </div>
       <div class="container-transaksi">
         <span class="icon"><i data-feather="dollar-sign"></i></span>
         <a
@@ -64,13 +77,13 @@ JOIN admin ON karyawan.manager = admin.id;
           >Transaksi</a
         >
       </div>
-      <div class="container-karyawan">
-        <span class="icon utama"><i data-feather="users"></i></span>
-        <a
-          href="#"
-          class="menu-nav"
-          >Karyawan</a
-        >
+      <div class="container-report">
+          <span class="icon"><i data-feather="file-text"></i></span>
+          <a
+            href="report.php"
+            class="menu-nav"
+            >Report</a
+          >
       </div>
       <div class="container-promosi">
         <span class="icon"><i data-feather="table"></i></span>
@@ -106,14 +119,26 @@ JOIN admin ON karyawan.manager = admin.id;
 
     <!-- Pencarian Start -->
     <div class="pencarian">
-      <form action="">
-        <button type="submit">Search</button>
+      <form
+        action=""
+        method="post"
+      >
         <input
           type="text"
-          name="cari"
-          placeholder="Search Product"
+          name="keyword"
+          placeholder="Search Karyawan"
+          autocomplete="off"
           required
         />
+        <button
+          type="submit"
+          name="cari"
+        >
+          Search
+        </button>
+        <div class="refresh">
+          <a href="karyawan.php"><i data-feather="refresh-ccw"></i></a>
+        </div>
       </form>
     </div>
     <!-- Pencarian End -->
@@ -149,8 +174,16 @@ JOIN admin ON karyawan.manager = admin.id;
             <td><?= $row['posisi']?></td>
             <td><?= $row['manager']?></td>
             <td>
-              <div class="btn_edit"><a href="form-edit-karyawan.php">E</a></div>
-              <div class="btn_hapus"><a href="..PHP/hapus-karyawan.php">x</a></div>
+              <div class="btn_edit">
+                <a href="form-edit-karyawan.php?id=<?=$row['id']?>&kode_alamat=<?=$row['kode_alamat']?>">E</a>
+              </div>
+              <div class="btn_hapus">
+                <a
+                  href="../PHP/hapus-karyawan.php?id=<?= $row['id']?>&kode_alamat=<?=$row['kode_alamat']?>"
+                  onclick="return confirm('apa Anda yakin mau menghapus?')"
+                  >x</a
+                >
+              </div>
             </td>
           </tr>
           <?php endforeach; ?>

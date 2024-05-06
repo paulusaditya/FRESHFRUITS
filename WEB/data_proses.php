@@ -1,142 +1,7 @@
 <?php
 require '../PHP/crud-produk.php';
+include "../PHP/apriori.php";
 // require '../PHP/apriori.php';
-
-$rows = query("SELECT 
-              dt.kode_transaksi, 
-              p.nama_produk 
-              FROM 
-              detail_transaksi dt 
-              JOIN transaksi t ON  dt.kode_transaksi=t.kode 
-              JOIN produk p ON dt.produk_terjual = p.kode
-              ORDER BY dt.kode_transaksi
-              ");
-
-$dataset = array();
-foreach ($rows as $row) {
-    $dataset[$row['kode_transaksi']][] = $row['nama_produk'];
-}
-$dataset = array_values($dataset);
-
-// var_dump($dataset);
-
-$min_support = 0.3;
-$min_frequency = 3;
-$jumlah_transaksi = count($dataset);
-
-
-function frequency_item($data) {
-    $freq_dict = [];
-    foreach ($data as $sublist) {
-        foreach ($sublist as $item) {
-            if (array_key_exists($item, $freq_dict)) {
-                $freq_dict[$item] += 1;
-            } else {
-                $freq_dict[$item] = 1;
-            }
-        }
-    }
-
-    return $freq_dict;
-}
-
-$item_frequency = frequency_item($dataset);
-// var_dump($item_frequency);
-
-
-function eliminasi_item($frekuensi, $min_frequency, $dataset, $min_support) {
-    $keys_to_remove = [];
-    $eliminasi_item = [];
-    foreach ($frekuensi as $key => $value) {
-        $p_support = $value / count($dataset);
-
-        if ($value < $min_frequency || $p_support < $min_support) {
-            $keys_to_remove[] = $key;
-            $eliminasi_item[$key] = "Tidak lolos";
-        } else {
-            $eliminasi_item[$key] = "lolos";
-        }
-    }
-    
-
-    foreach ($keys_to_remove as $key) {
-        unset($frekuensi[$key]);
-    }
-
-    return [$frekuensi, $eliminasi_item];
-}
-
-$result = eliminasi_item($item_frequency, $min_frequency, $dataset, $min_support);
-$sorted_items = $result[0];
-$eliminasi_item = $result[1];
-
-
-// Start Apriori
-function removeDuplicateValues($array) {
-    $uniqueArray = array();
-    foreach ($array as $subArray) {
-        // Urutkan nilai dalam sub array untuk membandingkan kesamaan isi
-        sort($subArray);
-        // Jika sub array belum ada di $uniqueArray, tambahkan ke $uniqueArray
-        if (!in_array($subArray, $uniqueArray)) {
-            $uniqueArray[] = $subArray;
-        }
-    }
-    return $uniqueArray;
-}
-
-// Fungsi untuk menghasilkan candidate itemsets
-function generate_candidate_itemsets($itemset, $k) {
-    $candidate_itemsets = [];
-    $n = count($itemset);
-    for ($i = 0; $i < $n; $i++) {
-        for ($j = $i + 1; $j < $n; $j++) {
-            $new_itemset = array_unique(array_merge($itemset[$i], $itemset[$j]));
-            if (count($new_itemset) == $k) {
-                $candidate_itemsets[] = array_values($new_itemset); // Convert to indexed array
-            }
-        }
-    }
-    
-    // Panggil fungsi removeDuplicateValues untuk menghapus nilai ganda
-    $candidate_itemsets = removeDuplicateValues($candidate_itemsets);
-    
-    return $candidate_itemsets;
-}
-
-
-function count_frequency($dataset, $candidate_itemsets) {
-    $frequency = [];
-    foreach ($dataset as $transaction) {
-        foreach ($candidate_itemsets as $itemset) {
-            if (empty(array_diff($itemset, $transaction))) {
-                $itemset_str = implode(", ", $itemset);
-                if (isset($frequency[$itemset_str])) {
-                    $frequency[$itemset_str]++;
-                } else {
-                    $frequency[$itemset_str] = 1;
-                }
-            }
-        }
-    }
-    return $frequency;
-}
-
-
-function check_frequency($frequency, $min_support, $min_frequency, $dataset) {
-    $frequent_itemsets = [];
-    $eliminasi_item = [];
-    foreach ($frequency as $itemset => $count) {
-        $support = $count / count($dataset);
-        if ($count >= $min_frequency && $support >= $min_support) {
-            $frequent_itemsets[$itemset] = $count;
-            $eliminasi_item[$itemset] = "Lolos";
-        } else {
-            $eliminasi_item[$itemset] = "Tidak Lolos";
-        }
-    }
-    return [$frequent_itemsets, $eliminasi_item];
-}
 
 ?>
 
@@ -184,6 +49,14 @@ function check_frequency($frequency, $min_support, $min_frequency, $dataset) {
           >Produk</a
         >
       </div>
+      <div class="container-karyawan">
+        <span class="icon"><i data-feather="users"></i></span>
+        <a
+          href="karyawan.php"
+          class="menu-nav"
+          >Karyawan</a
+        >
+      </div>
       <div class="container-transaksi">
         <span class="icon"><i data-feather="dollar-sign"></i></span>
         <a
@@ -192,13 +65,13 @@ function check_frequency($frequency, $min_support, $min_frequency, $dataset) {
           >Transaksi</a
         >
       </div>
-      <div class="container-karyawan">
-        <span class="icon"><i data-feather="users"></i></span>
-        <a
-          href="karyawan.php"
-          class="menu-nav"
-          >Karyawan</a
-        >
+      <div class="container-report">
+          <span class="icon"><i data-feather="file-text"></i></span>
+          <a
+            href="report.php"
+            class="menu-nav"
+            >Report</a
+          >
       </div>
       <div class="container-promosi">
         <span class="icon utama"><i data-feather="table"></i></span>
@@ -232,106 +105,167 @@ function check_frequency($frequency, $min_support, $min_frequency, $dataset) {
     <div id="batas"></div>
     <!-- Profile end -->
 
-    <!--  Content Promosi Diskon -->
-    <section class="container-data-proses">
+       <!-- Input Periode -->
+       <section class="container-detail-transaksi">
+        <div class="icon">
+          <div class="keterangan">
+            <span id="feather-icon"><i data-feather="table"></i></span>
+            <span>FREQUENT ITEMSET</span>
+          </div>
+        </div>
 
-        <h3>Keterangan</h3>
-        <h4>Min Support <?= $min_support ?></h4>
-        <h4>Min Frequency <?= $min_frequency ?></h4>
-        <table class="tabel">
-                <h5>Candidate Itemsets 1</h5>
-                <tr>
-                    <th>Item Set</th>
-                    <th>Frekuensi</th>
-                    <th>Support</th>
-                    <th>Keterangan</th>
-                </tr>
-                <?php foreach ($item_frequency as $item => $value): ?>
-                <tr>
-                    <td><?= $item ?></td>
-                    <td><?= $value ?></td>
-                    <td><?= number_format(($value / $jumlah_transaksi) * 100, 2) ?>%</td>
-                    <?php if (isset($eliminasi_item[$item])): ?>
-                        <td><?= $eliminasi_item[$item] ?></td>
-                    <?php else: ?>
-                        <td>-</td>
-                    <?php endif; ?>
-                </tr>
-            <?php endforeach; ?>
-            </table>
-            <table class="tabel">
-                <h5> Large Itemset 1</h5>
-                <tr>
-                    <th>Item Set</th>
-                    <th>Frekuensi</th>
-                    <th>Support</th>
-                </tr>
-                    <?php foreach($sorted_items as $items  => $value): ?>
-                        <tr>
-                        <td><?=$items?></td>
-                        <td><?=$value?></td>
-                        <td><?= number_format(($value / $jumlah_transaksi) * 100, 2) ?>%</td>
-                        </tr>
-                    <?php endforeach; ?>
-            </table>
+        <div class="c_periode">
+          <h4>Choose Period</h4>
+          <form
+            action=""
+            method="post"
+            class="range-period"
+          >
+            <input
+              type="date"
+              id="range-start"
+              name="range-start"
+              placeholder="Start Date"
+            />
+            <label>&gt;</label>
+            <input
+              type="date"
+              id="range-end"
+              name="range-end"
+              placeholder="End Date"
+            />
+            <button
+              type="submit"
+              class="report-button"
+              name="filter"
+              id="btnFilter"
+            >
+              Generate Report
+            </button>
+          </form>
+        </div>
+      </section>
+      
+    <!--  Data Proses Start -->
+    <?php if ( isset($_POST["filter"]) ) : ?>
+        <?php if ($dataset != null) :?>
+          <div class="kolom-data-not-null">
+              <span>Frequent itemset dari tanggal <b><?= $_POST["range-start"] ?></b> sampai dengan <b><?= $_POST["range-end"] ?></b></span>
+            </div>
+          <div class="container-data-proses">
+            <!--  Keterangan Awal Data Proses -->
+            <h3>Keterangan</h3>
+            <span>Min Support <?= $min_support * 100?>%</span>
+            <span>Min Frequency <?= $min_frequency ?></span>
+            
+            <!-- Tabel Pertama -->
+            <div class="table-container">
+              <div class="icon">
+                      <div class="keterangan">
+                          <span id="feather-icon"><i data-feather="table"></i></span>
+                          <span>Candidate Itemset 1</span>
+                      </div>
+              </div>
+              <table class="tabel">
+                  <tr>
+                      <th>Item Set</th>
+                      <th>Frekuensi</th>
+                      <th>Support</th>
+                      <th>Keterangan</th>
+                  </tr>
+                      <?php foreach ($item_frequency as $item => $value): ?>
+                      <tr>
+                          <td><?= $item ?></td>
+                          <td><?= $value ?></td>
+                          <td><?= number_format(($value / $jumlah_transaksi) * 100, 2) ?>%</td>
+                          <?php if (isset($eliminasi_item[$item])): ?>
+                              <td><?= $eliminasi_item[$item] ?></td>
+                          <?php else: ?>
+                              <td>-</td>
+                          <?php endif; ?>
+                      </tr>
+                  <?php endforeach; ?>
+                  </table>
 
-            <?php 
-            $itemset_1 = [];
-            foreach ($dataset as $transaction) {
-                foreach ($transaction as $item) {
-                    if (!in_array([$item], $itemset_1)) {
-                        $itemset_1[] = [$item];
-                    }
-                }
-            }
 
-            $k = 2;
-            $candidate_itemsets = generate_candidate_itemsets($itemset_1, $k);
-            // var_dump($candidate_itemsets);
-            $frequent_itemsets_list_a = [];
+                <table class="tabel">
+                <div class="icon">
+                    <div class="keterangan">
+                        <span id="feather-icon"><i data-feather="table"></i></span>
+                        <span>Large Itemset 1</span>
+                    </div>
+                    </div>
+                    <tr>
+                        <th>Item Set</th>
+                        <th>Frekuensi</th>
+                        <th>Support</th>
+                    </tr>
+                        <?php foreach($sorted_items as $items  => $value): ?>
+                            <tr>
+                            <td><?=$items?></td>
+                            <td><?=$value?></td>
+                            <td><?= number_format(($value / $jumlah_transaksi) * 100, 2) ?>%</td>
+                            </tr>
+                        <?php endforeach; ?>
+                </table>
 
-            while ($candidate_itemsets):
-                $frequent_itemsets = [];
-                $frequent_itemsets_list = [];
-                $antecedent = [];
+              <?php 
+              $itemset_1 = [];
+              foreach ($dataset as $transaction) {
+                  foreach ($transaction as $item) {
+                      if (!in_array([$item], $itemset_1)) {
+                          $itemset_1[] = [$item];
+                      }
+                  }
+              }
 
-                $frequency = count_frequency($dataset, $candidate_itemsets);
-                // var_dump($frequency);
+              $k = 2;
+              $candidate_itemsets = generate_candidate_itemsets($itemset_1, $k);
+              // var_dump($candidate_itemsets);
+              $frequent_itemsets_list_a = [];
 
-                $frequent_itemsets_list_a = array_merge($frequent_itemsets_list_a, check_frequency($frequency, $min_support, $min_support, $dataset)[0]);
-                $frequent_itemsets = array_merge($frequent_itemsets, check_frequency($frequency, $min_support, $min_support, $dataset)[0]);
+              while ($candidate_itemsets):
+                  $frequent_itemsets = [];
+                  $frequent_itemsets_list = [];
+                  $antecedent = [];
 
-                // Buat ngecek lolos enggaknya
-                $result = check_frequency($frequency, $min_support, $min_support, $dataset);
-                $eliminasi_item = $result[1];
+                  $frequency = count_frequency($dataset, $candidate_itemsets);
+                  // var_dump($frequency);
 
-                foreach ($frequent_itemsets as $items => $value){
-                    $frequent_itemsets_list[] = array_unique(explode(", ", $items));
-                }
+                  $frequent_itemsets_list_a = array_merge($frequent_itemsets_list_a, check_frequency($frequency, $min_support, $min_support, $dataset)[0]);
+                  $frequent_itemsets = array_merge($frequent_itemsets, check_frequency($frequency, $min_support, $min_support, $dataset)[0]);
 
-                foreach ($frequent_itemsets_list as $itemset){
-                    $antecedent[] = array_slice($itemset, 0, -1);
-                }
+                  // Buat ngecek lolos enggaknya
+                  $result = check_frequency($frequency, $min_support, $min_support, $dataset);
+                  $eliminasi_item = $result[1];
 
-                $result = [];
+                  foreach ($frequent_itemsets as $items => $value){
+                      $frequent_itemsets_list[] = array_unique(explode(", ", $items));
+                  }
 
-                foreach ($antecedent as $key){
-                    $antecedent_key = implode(", ", $key);
-                    if (count($key) < 2){
-                        if (isset($item_frequency[$antecedent_key])){
-                            $result[$antecedent_key] = $item_frequency[$antecedent_key];
-                        }
-                    } else {
-                        if (isset($frequent_itemsets_list_a[$antecedent_key])){
-                            $result[$antecedent_key] = $frequent_itemsets_list_a[$antecedent_key];
-                        }
-                    }
-                }
-                // var_dump($result);
-                // var_dump($antecedent);
-                // var_dump($frequent_itemsets_list_a);
-                // var_dump($frequent_itemsets);
-                ?>
+                  foreach ($frequent_itemsets_list as $itemset){
+                      $antecedent[] = array_slice($itemset, 0, -1);
+                  }
+
+                  $result = [];
+
+                  foreach ($antecedent as $key){
+                      $antecedent_key = implode(", ", $key);
+                      if (count($key) < 2){
+                          if (isset($item_frequency[$antecedent_key])){
+                              $result[$antecedent_key] = $item_frequency[$antecedent_key];
+                          }
+                      } else {
+                          if (isset($frequent_itemsets_list_a[$antecedent_key])){
+                              $result[$antecedent_key] = $frequent_itemsets_list_a[$antecedent_key];
+                          }
+                      }
+                  }
+                  // var_dump($result);
+                  // var_dump($antecedent);
+                  // var_dump($frequent_itemsets_list_a);
+                  // var_dump($frequent_itemsets);
+                  ?>
 
                 <table class="tabel">
                 <div class="icon">
@@ -362,7 +296,12 @@ function check_frequency($frequency, $min_support, $min_frequency, $dataset) {
 
 
                 <table class="tabel">
-                    <h5> Large Itemset <?= $k ?></h5>
+                    <div class="icon">
+                <div class="keterangan">
+                    <span id="feather-icon"><i data-feather="table"></i></span>
+                    <span>Large Itemset <?= $k ?></span>
+                </div>
+                </div>
                     <tr>
                         <th>Aturan</th>
                         <th>Support Itemset</th>
@@ -411,7 +350,14 @@ function check_frequency($frequency, $min_support, $min_frequency, $dataset) {
 
                     endwhile;
             ?>
-        </section>
+        
+          </div>
+          <?php else : ?>
+            <div class="kolom-data-null">
+              <span><h4>Belum ada transaksi pada rentang tanggal yang ditentukan</h4></span>
+            </div>
+        <?php endif ?>
+      <?php endif; ?>
 
     <script>
       feather.replace();

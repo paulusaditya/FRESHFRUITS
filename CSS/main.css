@@ -15,6 +15,7 @@ body {
   background-color: var(--bg);
   font-family: 'Poppins', sans-serif;
   /* overflow-x: scroll; */
+  overflow-x: hidden;
 }
 
 /* Navigasi start */

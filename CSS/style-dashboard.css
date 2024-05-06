@@ -117,6 +117,7 @@
   align-items: center;
   height: 50px;
   padding-left: 10px;
+  border: 1px solid rgb(155, 167, 167);
   border-bottom: 4.5px solid var(--primary);
   background-color: var(--bg);
   /* position: fixed; */
@@ -130,11 +131,17 @@
   padding-left: 10px;
 }
 
+.container-kolom-keterangan .pisah {
+  display: flex;
+  flex-direction: column;
+}
+
 .container-kolom-keterangan .kolom {
+  display: flex;
   flex-direction: column;
   background-color: white;
   width: 550px;
-  height: auto;
+  height: 340px;
   border: 1px solid rgb(155, 167, 167);
   overflow: auto;
 }
@@ -144,11 +151,10 @@
 }
 
 .container-kolom-keterangan .kolom .tb_produk,
-.tb_karyawan {
+.container-kolom-keterangan .kolom .tb_karyawan {
   display: flex;
   flex-direction: column;
-  margin: 15px auto;
-  border: 1px solid black;
+  margin: 15px 15px;
   border-collapse: collapse;
   padding: 20px;
   font-size: 12px;
@@ -157,7 +163,7 @@
 td,
 th {
   border: 1px solid black;
-  padding: 20px 5px;
+  padding: 20px 20px;
 }
 
 th {

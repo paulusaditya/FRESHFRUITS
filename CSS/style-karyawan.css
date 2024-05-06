@@ -43,7 +43,12 @@
 /* Pencarian Start */
 .pencarian {
   margin-top: 30px;
-  margin-left: 400px;
+  margin-left: 370px;
+  /* background-color: aliceblue; */
+}
+
+form {
+  display: flex;
 }
 
 .pencarian button {
@@ -54,6 +59,7 @@
   background-color: var(--transparent-primary);
   color: white;
   cursor: pointer;
+  margin-right: 5px;
 }
 
 .pencarian button:hover {
@@ -66,6 +72,24 @@
   border-radius: 8px;
   padding: 8px;
   border: 1.5px solid rgb(155, 167, 167);
+  margin-right: 5px;
+}
+
+.refresh {
+  background-color: var(--transparent-primary);
+  border: 1.5px solid var(--primary);
+  border-radius: 50px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+svg.feather.feather-refresh-ccw {
+  scale: 0.7;
+  margin-top: 6px;
+  color: white;
 }
 /* Pencarian End */
 
@@ -76,9 +100,10 @@
   margin-top: 30px;
   margin-left: 300px;
   width: 1400px;
-  height: 500px;
+  height: auto;
   display: flex;
   justify-content: center;
+  padding: 10px;
   /* border: 2px solid black; */
 }
 
@@ -87,12 +112,12 @@
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
-  width: 1300px;
+  width: 1350px;
   height: 70px;
   padding: 0 10px;
+  border: 1px solid rgb(155, 167, 167);
   border-bottom: 4.5px solid var(--primary);
   background-color: var(--bg);
-  border-right: 1px solid rgb(155, 167, 167);
   position: fixed;
 }
 
@@ -122,13 +147,15 @@
 }
 
 .container-manajemen-karyawan .kolom {
+  display: flex;
+  justify-content: center;
   flex-direction: column;
-  width: 1300px;
+  width: 1350px;
   height: auto;
   border: 1px solid rgb(155, 167, 167);
   overflow: auto;
   margin: 70px auto 15px;
-  padding-top: 15px;
+  /* padding-top: 15px; */
   background-color: white;
 }
 
@@ -147,8 +174,9 @@
   /* margin: 85px auto 15px; */
   border: 1px solid black;
   border-collapse: collapse;
-  padding: 5px;
+  margin: 10px;
   font-size: 12px;
+  text-align: center;
 }
 
 .container-manajemen-karyawan .kolom .tb_karyawan a {
@@ -173,7 +201,7 @@
 td,
 th {
   border: 1px solid black;
-  padding: 20px 45px;
+  padding: 20px 10px;
 }
 
 th {

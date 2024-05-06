@@ -1,6 +1,11 @@
 <?php
 require '../PHP/crud-produk.php';
 $rows = query("SELECT * FROM produk");
+// var_dump($rows);
+
+if ( isset($_POST["cari"]) ){
+  $rows = cari_produk($_POST['keyword']);
+}
 
 ?>
 
@@ -48,6 +53,14 @@ $rows = query("SELECT * FROM produk");
           >Produk</a
         >
       </div>
+      <div class="container-karyawan">
+        <span class="icon"><i data-feather="users"></i></span>
+        <a
+          href="karyawan.php"
+          class="menu-nav"
+          >Karyawan</a
+        >
+      </div>
       <div class="container-transaksi">
         <span class="icon"><i data-feather="dollar-sign"></i></span>
         <a
@@ -56,13 +69,13 @@ $rows = query("SELECT * FROM produk");
           >Transaksi</a
         >
       </div>
-      <div class="container-karyawan">
-        <span class="icon"><i data-feather="users"></i></span>
-        <a
-          href="karyawan.php"
-          class="menu-nav"
-          >Karyawan</a
-        >
+      <div class="container-report">
+          <span class="icon"><i data-feather="file-text"></i></span>
+          <a
+            href="report.php"
+            class="menu-nav"
+            >Report</a
+          >
       </div>
       <div class="container-promosi">
         <span class="icon"><i data-feather="table"></i></span>
@@ -100,15 +113,17 @@ $rows = query("SELECT * FROM produk");
     <!-- Fitur Search Start -->
     <div class="fitur-tambahan">
       <div class="pencarian">
-        <form action="">
-          <button type="submit">Search</button>
-          <input
-            type="text"
-            name="cari"
-            placeholder="Search Product"
-            required
-          />
-        </form>
+      <form action="" method="post">
+        <input
+          type="text"
+          name="keyword"
+          placeholder="Search Product"
+          autocomplete="off"
+          required
+        />
+        <button type="submit" name="cari">Search</button>
+        <div class="refresh"><a href="produk.php"><i data-feather="refresh-ccw"></i></a></div>
+      </form>
       </div>
 
       <!-- Fitur Sorting Start -->

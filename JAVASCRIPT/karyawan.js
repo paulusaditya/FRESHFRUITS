@@ -30,3 +30,15 @@ for (let i = 1; i <= 10; i++) {
 
   tabel_m_karyawan.appendChild(table_row_m_karyawan);
 }
+
+function validatePassword() {
+  var password = document.getElementById('password').value;
+  var confirmPassword = document.getElementById('password-confirm').value;
+
+  if (password !== confirmPassword) {
+    alert('Password and confirmation password do not match');
+    return false;
+  }
+
+  return true;
+}

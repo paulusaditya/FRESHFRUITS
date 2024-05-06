@@ -1,19 +1,33 @@
 <?php
+$conn = mysqli_connect("localhost", "root", "", "freshfruit");
 
-$dataset = [
-    ["Apel", "Jeruk", "Pisang", "Pear", "Melon", "Anggur"],
-    ["Melon", "Anggur", "Jeruk", "Apel", "Pear"],
-    ["Apel", "Melon", "Jeruk", "Anggur", "Mangga"],
-    ["Jeruk", "Apel", "Melon", "Anggur", "Pear", "Kiwi"],
-    ["Apel", "Pear", "Jeruk", "Peach"],
-    ["Apel", "Melon", "Anggur", "Durian"],
-    ["Jeruk", "Anggur", "Papaya"],
-    ["Melon", "Durian", "Peach", "Pear"],
-    ["Jeruk", "Kiwi", "Melon", "Apel"],
-    ["Durian", "Mangga", "Peach"]
-];
+$dari_tgl = "";
+$sampai_tgl = "";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $dari_tgl = mysqli_real_escape_string($conn, $_POST["range-start"]);
+    $sampai_tgl = mysqli_real_escape_string($conn, $_POST["range-end"]);
+}
 
-var_dump($dataset);
+$rows = query("SELECT 
+              dt.kode_transaksi, 
+              p.nama_produk 
+              FROM 
+              detail_transaksi dt 
+              JOIN transaksi t ON  dt.kode_transaksi=t.kode 
+              JOIN produk p ON dt.produk_terjual = p.kode
+              WHERE t.tanggal BETWEEN '$dari_tgl' AND '$sampai_tgl'
+              ORDER BY dt.kode_transaksi
+              ");
+
+$dataset = array();
+foreach ($rows as $row) {
+    $dataset[$row['kode_transaksi']][] = $row['nama_produk'];
+}
+
+
+$dataset = array_values($dataset);
+
+// var_dump($dataset);
 
 $min_support = 0.3;
 $min_frequency = 3;
@@ -45,11 +59,11 @@ function eliminasi_item($frekuensi, $min_frequency, $dataset, $min_support) {
     foreach ($frekuensi as $key => $value) {
         $p_support = $value / count($dataset);
 
-        if ($value < $min_frequency || $p_support < $min_support) {
+        if ($value >= $min_frequency || $p_support >= $min_support) {
+            $eliminasi_item[$key] = "lolos";
+        } else {
             $keys_to_remove[] = $key;
             $eliminasi_item[$key] = "Tidak lolos";
-        } else {
-            $eliminasi_item[$key] = "lolos";
         }
     }
     
@@ -135,191 +149,3 @@ function check_frequency($frequency, $min_support, $min_frequency, $dataset) {
 
 
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apriori</title>
-
-
-    <link
-      rel="stylesheet"
-      href="css.css"
-    />
-</head>
-<body>
-    <h3>Keterangan</h3>
-    <h4>Min Support <?= $min_support ?></h4>
-    <h4>Min Frequency <?= $min_frequency ?></h4>
-<table>
-        <h5>Candidate Itemsets 1</h5>
-        <tr>
-            <th>Item Set</th>
-            <th>Frekuensi</th>
-            <th>Support</th>
-            <th>Keterangan</th>
-        </tr>
-        <?php foreach ($item_frequency as $item => $value): ?>
-        <tr>
-            <td><?= $item ?></td>
-            <td><?= $value ?></td>
-            <td><?= number_format(($value / $jumlah_transaksi) * 100, 2) ?>%</td>
-            <?php if (isset($eliminasi_item[$item])): ?>
-                <td><?= $eliminasi_item[$item] ?></td>
-            <?php else: ?>
-                <td>-</td>
-            <?php endif; ?>
-        </tr>
-    <?php endforeach; ?>
-    </table>
-    <table>
-        <h5> Large Itemset 1</h5>
-        <tr>
-            <th>Item Set</th>
-            <th>Frekuensi</th>
-            <th>Support</th>
-        </tr>
-            <?php foreach($sorted_items as $items  => $value): ?>
-                <tr>
-                <td><?=$items?></td>
-                <td><?=$value?></td>
-                <td><?= number_format(($value / $jumlah_transaksi) * 100, 2) ?>%</td>
-                </tr>
-            <?php endforeach; ?>
-    </table>
-
-    <?php 
-    $itemset_1 = [];
-    foreach ($dataset as $transaction) {
-        foreach ($transaction as $item) {
-            if (!in_array([$item], $itemset_1)) {
-                $itemset_1[] = [$item];
-            }
-        }
-    }
-
-    $k = 2;
-    $candidate_itemsets = generate_candidate_itemsets($itemset_1, $k);
-    // var_dump($candidate_itemsets);
-    $frequent_itemsets_list_a = [];
-
-    while ($candidate_itemsets):
-        $frequent_itemsets = [];
-        $frequent_itemsets_list = [];
-        $antecedent = [];
-
-        $frequency = count_frequency($dataset, $candidate_itemsets);
-        // var_dump($frequency);
-
-        $frequent_itemsets_list_a = array_merge($frequent_itemsets_list_a, check_frequency($frequency, $min_support, $min_support, $dataset)[0]);
-        $frequent_itemsets = array_merge($frequent_itemsets, check_frequency($frequency, $min_support, $min_support, $dataset)[0]);
-
-        // Buat ngecek lolos enggaknya
-        $result = check_frequency($frequency, $min_support, $min_support, $dataset);
-        $eliminasi_item = $result[1];
-
-        foreach ($frequent_itemsets as $items => $value){
-            $frequent_itemsets_list[] = array_unique(explode(", ", $items));
-        }
-
-        foreach ($frequent_itemsets_list as $itemset){
-            $antecedent[] = array_slice($itemset, 0, -1);
-        }
-
-        $result = [];
-
-        foreach ($antecedent as $key){
-            $antecedent_key = implode(", ", $key);
-            if (count($key) < 2){
-                if (isset($item_frequency[$antecedent_key])){
-                    $result[$antecedent_key] = $item_frequency[$antecedent_key];
-                }
-            } else {
-                if (isset($frequent_itemsets_list_a[$antecedent_key])){
-                    $result[$antecedent_key] = $frequent_itemsets_list_a[$antecedent_key];
-                }
-            }
-        }
-        // var_dump($result);
-        // var_dump($antecedent);
-        // var_dump($frequent_itemsets_list_a);
-        // var_dump($frequent_itemsets);
-        ?>
-
-        <table>
-            <h5> Candidate Itemset <?= $k ?></h5>
-            <tr>
-            <th>Item Set</th>
-            <th>Frekuensi</th>
-            <th>Support</th>
-            <th>Keterangan</th>
-            </tr>
-            <?php foreach($frequency as $items => $value): ?>
-                <tr>
-                    <td><?= $items ?></td>
-                    <td><?= $value ?></td>
-                    <td><?= number_format(($value / $jumlah_transaksi) * 100, 2) ?>%</td>
-                    <?php if (isset($eliminasi_item[$items])): ?>
-                        <td><?= $eliminasi_item[$items] ?></td>
-                    <?php else: ?>
-                        <td>-</td>
-                    <?php endif; ?>
-                </tr>
-            <?php endforeach; ?>
-        </table>
-
-
-        <table>
-            <h5> Large Itemset <?= $k ?></h5>
-            <tr>
-                <th>Aturan</th>
-                <th>Support Itemset</th>
-                <th>Support Antecedent</th>
-                <th>Confidence</th>
-            </tr>
-            <?php foreach ($frequent_itemsets as $itemset => $values): ?>
-                <?php 
-                // $antecedents = [];
-                // $value_prev = [];
-                // foreach ($result as $items_prev => $val_prev){
-                //     if (strpos($itemset, $items_prev) !== false){
-                //         $antecedents[] = $items_prev;
-                //         $value_prev[] = $val_prev;
-                //         // break;
-                //     }
-                // }
-
-                // var_dump($antecedents);
-
-                ?>
-                <tr>
-                    <td>Jika dibeli <?= substr_replace($itemset, " maka dibeli ", strrpos($itemset, ","), 1); ?></td>
-                    <td><?= number_format(($values / $jumlah_transaksi) * 100, 2); ?>%</td>
-
-                    <?php foreach ($result as $items_prev => $val_prev): ?>
-                        <?php if (strpos($itemset, $items_prev) !== false): ?>
-                            <td><?= number_format(($val_prev / $jumlah_transaksi) * 100, 2); ?>%</td>
-                            <td><?= number_format(($values / $val_prev) * 100, 2); ?>%</td>
-                            <?php break;?>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                    
-                </tr>
-            <?php endforeach; ?>
-
-
-        </table>
-        <?php 
-
-            // $frequent_itemsets = array();
-
-
-            $k++;
-            $candidate_itemsets = generate_candidate_itemsets($frequent_itemsets_list, $k);
-
-            endwhile;
-    ?>
-</body>
-</html>

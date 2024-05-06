@@ -28,7 +28,6 @@ $rows = query("SELECT
                   karyawan.nama
               ORDER BY 
                   transaksi.kode DESC;
-
               ");
 
 if ( isset($_POST["cari"]) ){
@@ -63,7 +62,7 @@ if ( isset($_POST["cari"]) ){
 
     <link
       rel="stylesheet"
-      href="../CSS/style-transaksi.css"
+      href="../CSS/style-report.css"
     />
 
     <!-- Feather Icons -->
@@ -99,17 +98,17 @@ if ( isset($_POST["cari"]) ){
         >
       </div>
       <div class="container-transaksi">
-          <span class="icon utama"><i data-feather="dollar-sign"></i></span>
+          <span class="icon"><i data-feather="dollar-sign"></i></span>
           <a
-            href="#"
+            href="transaksi.php"
             class="menu-nav"
             >Transaksi</a
           >
         </div>
         <div class="container-report">
-          <span class="icon"><i data-feather="file-text"></i></span>
+          <span class="icon utama"><i data-feather="file-text"></i></span>
           <a
-            href="report.php"
+            href="#"
             class="menu-nav"
             >Report</a
           >
@@ -136,7 +135,7 @@ if ( isset($_POST["cari"]) ){
     <!-- Profile -->
     <header class="profile">
       <h2>FreshFruit</h2>
-      <h1 style="margin-right: 90px">TRANSAKSI</h1>
+      <h1 style="margin-right: 90px">LAPORAN TRANSAKSI</h1>
       <a
         href="akun.php"
         id="profile"
@@ -146,72 +145,120 @@ if ( isset($_POST["cari"]) ){
     <div id="batas"></div>
     <!-- Profile end -->
 
-    <!-- Kolom Manajemen Transaksi Start -->
-    <section class="container-manajemen-transaksi">
+    <!-- Section Detail Laporan Start -->
+    <section class="container-detail-transaksi">
       <div class="icon">
         <div class="keterangan">
           <span id="feather-icon"><i data-feather="table"></i></span>
-          <span>TRANSAKSI</span>
+          <span>LAPORAN TRANSAKSI</span>
         </div>
       </div>
 
-      <!-- Fitur Search and Sort Start -->
-      <!-- Pencarian Start -->
-      <div class="fitur-tambahan">
-        <div class="pencarian">
-          <form
-            action=""
-            method="post"
+      <div class="c_periode">
+        <h4>Choose Period</h4>
+        <form
+          action=""
+          method="post"
+          class="range-period"
+        >
+          <input
+            type="date"
+            id="range-start"
+            name="range-start"
+            placeholder="Start Date"
+          />
+          <label>&gt;</label>
+          <input
+            type="date"
+            id="range-end"
+            name="range-end"
+            placeholder="End Date"
+          />
+          <button
+            type="submit"
+            class="report-button"
+            name="filter"
+            id="btnFilter"
           >
-            <input
-              type="text"
-              name="keyword"
-              placeholder="Search Product"
-              autocomplete="off"
-              required
-            />
-            <button
-              type="submit"
-              name="cari"
-            >
-              Search
-            </button>
-            <div class="refresh">
-              <a href="karyawan.php"><i data-feather="refresh-ccw"></i></a>
+            Generate Report
+          </button>
+        </form>
+      </div>
+      
+      <?php if ( isset($_POST["filter"]) ) : ?>
+        <?php $data_brg = filter(); ?>
+          <?php if ($data_brg != null) :?>
+          <div class="kolom kolom-report">
+            <table class="tabel periode">
+              <thead>
+                <tr>
+                  <th>Periode Penjualan</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b><?= $_POST['range-start'] ?></b> Sampai Dengan <b><?= $_POST['range-end'] ?></b></td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="tabel tb_detail_transaksi">
+              <tr>
+                <th>Produk Terjual</th>
+                <th>Selling Price</th>
+                <th>Buying Price</th>
+                <th>Kuantitas</th>
+                <th>Total</th>
+              </tr>
+              <?php  $id = 0;  ?>
+              <?php if ($data_brg !== null) : ?>
+                <?php foreach ($data_brg as $brg) :?>
+                <tr>
+                  <td><?= $brg['nama_produk'] ?></td>
+                  <td><?= $brg['harga'] ?></td>
+                  <td><?= $brg['harga_grosir'] ?></td>
+                  <td><?= $brg['total_kuantitas'] ?></td>
+                  <td><?= $brg['total_penjualan'] ?></td>
+                </tr>
+                <?php endforeach; ?>
+              <?php endif; ?>
+
+              <?php
+              $grand_total_penjualan = 0;
+              $total_profit = 0;
+
+              foreach ($data_brg as $item) {
+                $grand_total_penjualan += $item['grand_total_penjualan'];
+                $total_profit += $item['total_profit'];
+              }
+              ?>
+              <tr style="background-color: rgb(245, 245, 245); font-weight: bold">
+                <td
+                  colspan="3"
+                  style="text-align: center"
+                ></td>
+                <td style="text-align: center">Grand Total</td>
+                <td style="text-align: center">Rp. <?= $grand_total_penjualan ?></td>
+              </tr>
+
+              <tr style="background-color: rgb(245, 245, 245); font-weight: bold">
+                <td
+                  colspan="3"
+                  style="text-align: center"
+                ></td>
+                <td style="text-align: center">Profit</td>
+                <td style="text-align: center">Rp. <?= $total_profit ?></td>
+              </tr>
+            </table>
+          </div>
+          
+          <?php else : ?>
+            <div class="kolom-data-null">
+              <span><h4>Belum ada transaksi pada rentang tanggal yang ditentukan</h4></span>
             </div>
-          </form>
-        </div>
-      </div>
-      <!-- Fitur Search nd Sort End -->
-
-      <div class="kolom">
-        <table class="tb_transaksi">
-          <tr>
-            <th>Kode Transaksi</th>
-            <th>Produk Terjual</th>
-            <th>Kuantitas</th>
-            <th>Total</th>
-            <th>Tgl Transaksi</th>
-            <th>Karyawan</th>
-          </tr>
-
-          <?php foreach ($rows as $row) : ?>
-          <tr>
-            <td><?=$row['kode_transaksi']?></td>
-            <td><?=$row['produk_terjual_multivalue']?></td>
-            <td><?=$row['total_kuantitas']?></td>
-            <td>
-              Rp.
-              <?=$row['total_pembelian']?>
-            </td>
-            <td><?=$row['tanggal_terjual']?></td>
-            <td><?=$row['karyawan_melayani']?></td>
-          </tr>
-          <?php endforeach; ?>
-        </table>
-      </div>
+        <?php endif ?>
+      <?php endif; ?>
     </section>
-    <!-- Kolom Manajemen Transaksi End -->
+    <!-- Section Detail Laporan End -->
 
     <!-- Section Prediksi Permintaan Start -->
     <!-- <section class="container-prediksi-permintaan">

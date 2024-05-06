@@ -34,8 +34,8 @@
 /* Fitur Tambahan */
 .fitur-tambahan {
   display: flex;
-  justify-content: space-around;
-  align-self: center;
+  /* justify-content: space-around; */
+  /* align-self: center; */
   padding: 30px;
   width: 1350px;
   display: flex;
@@ -43,13 +43,14 @@
   border-bottom: none;
   margin-right: 50px;
 }
-
 /* Pencarian Start */
-.pencarian {
-  margin-left: -160px;
+
+form {
+  display: flex;
 }
 
-.pencarian button {
+.pencarian button,
+.report-button {
   width: 80px;
   height: 30px;
   border-radius: 8px;
@@ -57,6 +58,7 @@
   background-color: var(--transparent-primary);
   color: white;
   cursor: pointer;
+  margin-right: 5px;
 }
 
 .pencarian button:hover {
@@ -69,6 +71,24 @@
   border-radius: 8px;
   padding: 8px;
   border: 1.5px solid rgb(155, 167, 167);
+  margin-right: 5px;
+}
+
+.refresh {
+  background-color: var(--transparent-primary);
+  border: 1.5px solid var(--primary);
+  border-radius: 50px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+svg.feather.feather-refresh-ccw {
+  scale: 0.7;
+  margin-top: 6px;
+  color: white;
 }
 /* Pencarian End */
 
@@ -126,22 +146,18 @@ th {
 /* Kolom Manajemen Transaksi End */
 
 /* Kolom Detail Transaksi Per-Periode/prediksi permintaan Start*/
-.container-manajemen-transaksi,
-.container-detail-transaksi,
-.container-prediksi-permintaan {
+.container-manajemen-transaksi {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   margin: 30px 0 30px 300px;
   width: 1400px;
-  height: 500px;
+  height: 700px;
   display: flex;
   /* border: 2px solid black; */
 }
 
-.container-manajemen-transaksi .kolom,
-.container-detail-transaksi .kolom,
-.container-prediksi-permintaan .kolom {
+.container-manajemen-transaksi .kolom {
   flex-direction: column;
   background-color: white;
   width: 1350px;
@@ -150,9 +166,13 @@ th {
   overflow: auto;
 }
 
-.container-manajemen-transaksi .icon,
-.container-detail-transaksi .icon,
-.container-prediksi-permintaan .icon {
+.kolom-data-null {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.container-manajemen-transaksi .icon {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -176,60 +196,11 @@ th {
   /* border: 1px solid black; */
 }
 
-.container-detail-transaksi .icon .keterangan {
-  display: flex;
-  align-items: center;
-  font-weight: bold;
-  font-size: medium;
-  width: 205px;
-  justify-content: space-between;
-  /* border: 1px solid black; */
-}
-
-.container-prediksi-permintaan .icon .keterangan {
-  display: flex;
-  align-items: center;
-  font-weight: bold;
-  font-size: medium;
-  width: 215px;
-  justify-content: space-between;
-}
-
-.container-manajemen-transaksi .icon .keterangan #feather-icon,
-.container-detail-transaksi .icon .keterangan #feather-icon,
-.container-prediksi-permintaan .icon .keterangan #feather-icon {
+.container-manajemen-transaksi .icon .keterangan #feather-icon {
   margin-top: 5px;
 }
 
-.container-detail-transaksi .kolom .range-period {
-  align-items: center;
-  background-color: var(--bg);
-  width: 100%;
-  height: 100px;
-  padding: 15px 20px;
-  border-bottom: 1px solid rgb(155, 167, 167);
-}
-
-.container-detail-transaksi .kolom .range-period input {
-  margin-top: 10px;
-  width: 200px;
-  height: 30px;
-  border-radius: 8px;
-  padding: 8px;
-  border: 1px solid rgb(155, 167, 167);
-}
-
-.container-detail-transaksi .kolom .range-period label {
-  /* background-color: var(--transparent-primary); */
-  border-radius: 8px;
-  margin: 0 10px;
-  font-size: larger;
-  font-weight: bold;
-}
-
-.container-manajemen-transaksi .kolom .tabel,
-.container-detail-transaksi .kolom .tabel,
-.container-prediksi-permintaan .kolom .tabel {
+.container-manajemen-transaksi .kolom .tabel {
   margin: 30px auto 5px;
   border: 1px solid black;
   border-collapse: collapse;
@@ -238,7 +209,4 @@ th {
   width: 1200px;
 }
 
-.container-detail-transaksi .kolom .periode {
-  text-align: center;
-}
 /* Kolom Detail Transaksi Per-Periode/prediksi permintaan End*/

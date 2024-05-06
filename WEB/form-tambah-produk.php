@@ -59,6 +59,14 @@ if (isset($_POST['submit'])){
           >Produk</a
         >
       </div>
+      <div class="container-karyawan">
+        <span class="icon"><i data-feather="users"></i></span>
+        <a
+          href="karyawan.php"
+          class="menu-nav"
+          >Karyawan</a
+        >
+      </div>
       <div class="container-transaksi">
         <span class="icon"><i data-feather="dollar-sign"></i></span>
         <a
@@ -67,13 +75,13 @@ if (isset($_POST['submit'])){
           >Transaksi</a
         >
       </div>
-      <div class="container-karyawan">
-        <span class="icon"><i data-feather="users"></i></span>
-        <a
-          href="karyawan.php"
-          class="menu-nav"
-          >Karyawan</a
-        >
+      <div class="container-report">
+          <span class="icon"><i data-feather="file-text"></i></span>
+          <a
+            href="report.php"
+            class="menu-nav"
+            >Report</a
+          >
       </div>
       <div class="container-promosi">
         <span class="icon"><i data-feather="table"></i></span>
@@ -135,11 +143,20 @@ if (isset($_POST['submit'])){
             required
           /><br />
 
-          <label for="harga">Harga</label><br />
+          <label for="harga">Harga Beli</label><br />
           <input
             type="number"
-            id="harga"
-            name="harga"
+            id="harga-beli"
+            name="harga_beli"
+            placeholder="Rp. xxxxx"
+            required
+          /><br />
+
+          <label for="harga">Harga Jual</label><br />
+          <input
+            type="number"
+            id="harga-Jual"
+            name="harga_jual"
             placeholder="Rp. xxxxx"
             required
           /><br />

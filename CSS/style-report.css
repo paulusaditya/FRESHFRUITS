@@ -1,10 +1,11 @@
+/* Navigasi start */
 @import url(main.css);
-.navbar .container-promosi a {
+.navbar .container-report a {
   color: var(--primary);
   font-size: 20px;
 }
 
-.navbar .container-promosi .utama {
+.navbar .container-report .utama {
   color: var(--primary);
   scale: 1;
 }
@@ -22,75 +23,61 @@
   background-color: white;
   border-bottom: 1px solid rgb(211, 218, 218);
   position: fixed;
+  z-index: 998;
 }
-
-/* .profile #profile {
-          text-align: center;
-          padding: 5px 5px 0;
-          width: 40px;
-          height: 40px;
-          border: 3px solid darkgray;
-          padding: 0.5px;
-          border-radius: 50%;
-        } */
 
 #batas {
   height: 80px;
 }
 /* header end */
 
-/* Data Proses Start */
-.container-data-proses {
-  display: flex;
-  justify-content: start;
-  flex-direction: column;
-  margin-left: 300px;
-  margin-top: 10px;
-  width: 1350px;
-  height: auto;
-  border: 1px solid rgb(141, 141, 141);
-  border-radius: 7px;
-  padding: 10px;
+td,
+th {
+  border: 1px solid black;
+  padding: 20px 45px;
 }
 
-.container-data-proses .tabel {
-  width: 100%;
-  height: auto;
-  border: 1px solid rgb(141, 141, 141);
-  border-radius: 7px;
-  text-align: center;
-  margin: 10px auto;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding-top: 10px;
-  background-color: white;
+th {
+  background-color: rgb(219, 210, 210);
 }
 
-.container-data-proses .icon {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 50px;
-  border-bottom: 4.5px solid var(--primary);
-}
-
-.container-data-proses .icon .keterangan {
-  font-weight: bold;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 210px;
-}
-
-/* Ini Kolom keterangan  (header) */
+/* Kolom Detail Transaksi Per-Periode/prediksi permintaan Start*/
 .container-detail-transaksi {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  margin: 30px 0 10px 300px;
+  margin: 30px 0 30px 300px;
+  width: 1400px;
+  height: 700px;
+  display: flex;
+  /* border: 2px solid black; */
+}
+
+.container-detail-transaksi .kolom {
+  flex-direction: column;
+  background-color: white;
   width: 1350px;
   height: auto;
+  border: 1px solid rgb(155, 167, 167);
+  overflow: auto;
+}
+
+.kolom-data-null {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background-color: white;
+  width: 1350px;
+  height: auto;
+  border: 1px solid rgb(155, 167, 167);
+}
+
+.container-detail-transaksi .c_periode {
+  flex-direction: column;
+  width: 1350px;
+  height: auto;
+  border: 1px solid rgb(155, 167, 167);
+  /* overflow: auto;*/
 }
 
 .container-detail-transaksi .icon {
@@ -100,7 +87,7 @@
   flex-direction: row;
   padding: 0 10px;
   background-color: var(--bg);
-  width: 100%;
+  width: 1350px;
   height: 100px;
   border: 1px solid rgb(155, 167, 167);
   border-bottom: 4.5px solid var(--primary);
@@ -112,25 +99,13 @@
   align-items: center;
   font-weight: bold;
   font-size: medium;
-  width: 200px;
+  width: 205px;
+  justify-content: space-between;
   /* border: 1px solid black; */
 }
 
 .container-detail-transaksi .icon .keterangan #feather-icon {
   margin-top: 5px;
-}
-
-.container-detail-transaksi .icon .keterangan span {
-  margin-left: 10px;
-}
-
-/* Kolom Detail Transaksi Per-Periode/prediksi permintaan Start*/
-.container-detail-transaksi .c_periode {
-  flex-direction: column;
-  width: 100%;
-  height: auto;
-  border: 1px solid rgb(155, 167, 167);
-  /* overflow: auto;*/
 }
 
 .container-detail-transaksi .c_periode h4 {
@@ -176,33 +151,17 @@
   font-weight: bold;
 }
 
-.kolom-data-null {
-  display: flex;
-  justify-content: center;
-  padding: 20px;
-  width: 1350px;
-  height: auto;
-  border: 1px solid rgb(155, 167, 167);
-  margin-left: 300px;
-}
-
-.kolom-data-not-null {
-  display: flex;
-  justify-content: center;
-  padding: 20px;
-  width: 1350px;
-  height: auto;
-  border: 1px solid rgb(155, 167, 167);
-  margin-left: 300px;
-  background-color: white;
-}
-
-table,
-th,
-td,
-tr {
+.container-detail-transaksi .kolom .tabel {
+  margin: 30px auto 5px;
   border: 1px solid black;
   border-collapse: collapse;
-  padding: 5px 10px;
+  padding: 5px;
+  font-size: 12px;
+  width: 1200px;
+}
+
+.container-detail-transaksi .kolom .periode {
   text-align: center;
 }
+
+/* Kolom Detail Transaksi Per-Periode/prediksi permintaan End*/
