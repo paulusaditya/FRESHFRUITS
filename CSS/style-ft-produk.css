@@ -18,13 +18,14 @@
   justify-content: center;
   margin-top: 30px;
   margin-left: 300px;
+  margin-bottom: 30px;
   width: 1400px;
-  height: 600px;
+  height: 650px;
 }
 
 .form-container .form {
   width: 1300px;
-  height: 600px;
+  height: auto;
   background-color: white;
   border: 1px solid rgb(155, 167, 167);
 }
