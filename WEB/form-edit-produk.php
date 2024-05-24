@@ -40,6 +40,18 @@ if ( isset($_POST['submit']) ){
     />
     <title>Edit Produk</title>
 
+    <!-- Alertify -->
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
+
+    <!-- CSS Alertify -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/alertify.min.css"/>
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/default.min.css"/>
+    <!-- Semantic UI theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/semantic.min.css"/>
+    <!-- Bootstrap theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/bootstrap.min.css"/>
+
     <!-- Google Font -->
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
@@ -61,7 +73,7 @@ if ( isset($_POST['submit']) ){
       <div class="container-dashboard">
         <span class="icon"><i data-feather="home"></i></span>
         <a
-          href="dashboard.php"
+          href="index.php"
           class="menu-nav dashboard"
           >Dashboard</a
         >
@@ -139,7 +151,8 @@ if ( isset($_POST['submit']) ){
             <span>EDIT PRODUCT</span>
           </div>
         </div>
-        <form action="" method="POST">
+        <form id="myForm" action="" method="POST" enctype="multipart/form-data" >
+          <input type="hidden" id="gambarLama" name="gambarLama"  value="<?= $rows['gambar'] ?>">
           <label for="kode">Kode Buah</label><br />
           <input
             type="text"
@@ -160,15 +173,26 @@ if ( isset($_POST['submit']) ){
             required
           /><br />
 
-          <label for="harga">Harga</label><br />
+          <label for="harga">Harga Beli</label><br />
           <input
             type="number"
-            id="harga"
-            name="harga"
+            id="harga_beli"
+            name="harga_beli"
+            placeholder="Rp. xxxxx"
+            value="<?= $rows['harga_grosir'] ?>"
+            required
+          /><br />
+
+          <label for="harga">Harga Jual</label><br />
+          <input
+            type="number"
+            id="harga_jual"
+            name="harga_jual"
             placeholder="Rp. xxxxx"
             value="<?= $rows['harga'] ?>"
             required
           /><br />
+
 
           <label for="berat">Berat</label><br />
           <input
@@ -200,13 +224,23 @@ if ( isset($_POST['submit']) ){
             required
           /><br />
 
+          <label for="gambar_produk">Gambar</label><br />
+          <img src="../IMG/<?= $rows['gambar'] ?>" alt="" style ="width: 90px; margin-bottom: 20px;"><br>
+          <input
+            type="file"
+            id="gambar_produk"
+            name="gambar_produk"
+          /><br />
+
           <button
           type="submit"
           name = "submit"
           style="cursor: pointer"
+          onclick="confirmEdit()"
         >
           Submit
         </button>
+
 
         <button
           type="reset"

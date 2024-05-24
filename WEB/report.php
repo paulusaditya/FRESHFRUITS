@@ -1,6 +1,6 @@
 <?php
 require '../PHP/crud-produk.php';
-include '../PHP/transaksi.php';
+include '../PHP/filter-report.php';
 
 // $rows = query("SELECT detail_transaksi.id, transaksi.kode, produk.nama_produk, detail_transaksi.kuantitas, detail_transaksi.total, transaksi.tanggal, karyawan.nama 
 //                 FROM detail_transaksi 
@@ -29,10 +29,6 @@ $rows = query("SELECT
               ORDER BY 
                   transaksi.kode DESC;
               ");
-
-if ( isset($_POST["cari"]) ){
-  $rows = cari_transaksi($_POST['keyword']);
-}
 
 
 // if ( isset($_POST["filter"]) ){
@@ -75,7 +71,7 @@ if ( isset($_POST["cari"]) ){
       <div class="container-dashboard">
         <span class="icon"><i data-feather="home"></i></span>
         <a
-          href="dashboard.php"
+          href="index.php"
           class="menu-nav dashboard"
           >Dashboard</a
         >

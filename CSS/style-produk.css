@@ -110,10 +110,12 @@ form {
 .container-manajemen-produk {
   display: flex;
   justify-content: center;
+  flex-direction: column;
   margin-top: 30px;
-  margin-left: 300px;
+  margin-left: 350px;
+  margin-bottom: 50px;
   width: 1400px;
-  height: 500px;
+  height: 700px;
   display: flex;
   /* border: 2px solid black; */
 }
@@ -121,8 +123,8 @@ form {
 .container-manajemen-produk .kolom {
   flex-direction: column;
   background-color: white;
-  width: 1200px;
-  height: auto;
+  width: 1300px;
+  height: 700px;
   border: 1px solid rgb(155, 167, 167);
   overflow: auto;
 }
@@ -132,13 +134,13 @@ form {
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
-  height: 70px;
+  height: 90px;
   padding: 0 10px;
-  border-bottom: 4.5px solid var(--primary);
   background-color: var(--bg);
-  width: 1199px;
-  border-right: 1px solid rgb(155, 167, 167);
-  position: fixed;
+  width: 1299px;
+  border: 1px solid rgb(155, 167, 167);
+  border-bottom: 4.5px solid var(--primary);
+  /* position: relative; */
 }
 
 .container-manajemen-produk .icon .keterangan {
@@ -178,7 +180,7 @@ form {
 }
 
 .container-manajemen-produk .kolom .tb_produk {
-  margin: 85px auto 15px;
+  margin: 20px auto 15px;
   border: 1px solid black;
   border-collapse: collapse;
   padding: 5px;
@@ -206,7 +208,7 @@ form {
 td,
 th {
   border: 1px solid black;
-  padding: 20px 45px;
+  padding: 20px 10px;
 }
 
 th {
@@ -220,5 +222,9 @@ td:nth-child(7) {
 
 tr:not(:last-child) {
   border-bottom: 1px solid black;
+}
+
+.ajs-no-bounce .ajs-modal {
+  animation: none !important;
 }
 /* Kolom Manajemen Produk End */

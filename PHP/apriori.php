@@ -56,10 +56,11 @@ $item_frequency = frequency_item($dataset);
 function eliminasi_item($frekuensi, $min_frequency, $dataset, $min_support) {
     $keys_to_remove = [];
     $eliminasi_item = [];
+    $subArray;
     foreach ($frekuensi as $key => $value) {
         $p_support = $value / count($dataset);
 
-        if ($value >= $min_frequency || $p_support >= $min_support) {
+        if ($value >= $min_frequency && $p_support >= $min_support) {
             $eliminasi_item[$key] = "lolos";
         } else {
             $keys_to_remove[] = $key;
@@ -67,17 +68,28 @@ function eliminasi_item($frekuensi, $min_frequency, $dataset, $min_support) {
         }
     }
     
-
     foreach ($keys_to_remove as $key) {
         unset($frekuensi[$key]);
     }
 
-    return [$frekuensi, $eliminasi_item];
+    foreach ($dataset as $key1 => &$subArray) {
+        foreach ($subArray as $key2 => $value) {
+            if (in_array($value, $keys_to_remove)) {
+                unset($subArray[$key2]);
+            }
+        }
+        $subArray = array_values($subArray);
+    }
+
+    return [$frekuensi, $eliminasi_item, $dataset];
 }
 
 $result = eliminasi_item($item_frequency, $min_frequency, $dataset, $min_support);
 $sorted_items = $result[0];
 $eliminasi_item = $result[1];
+$dataset_el = $result[2];
+
+// var_dump($dataset_el);
 
 
 // Start Apriori
@@ -110,6 +122,7 @@ function generate_candidate_itemsets($itemset, $k) {
     // Panggil fungsi removeDuplicateValues untuk menghapus nilai ganda
     $candidate_itemsets = removeDuplicateValues($candidate_itemsets);
     
+    // var_dump($candidate_itemsets);
     return $candidate_itemsets;
 }
 
@@ -137,7 +150,7 @@ function check_frequency($frequency, $min_support, $min_frequency, $dataset) {
     $eliminasi_item = [];
     foreach ($frequency as $itemset => $count) {
         $support = $count / count($dataset);
-        if ($count >= $min_frequency && $support >= $min_support) {
+        if ($support >= $min_support && $count >= $min_frequency) {
             $frequent_itemsets[$itemset] = $count;
             $eliminasi_item[$itemset] = "Lolos";
         } else {

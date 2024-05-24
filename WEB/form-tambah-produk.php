@@ -3,10 +3,16 @@
 require '../PHP/crud-produk.php';
 
 if (isset($_POST['submit'])){
+
+  // var_dump($_FILES['gambar_produk']); die;
+
     if (tambah($_POST) > 0){
-        echo "Data Berhasil Ditambahkan!";
-        header("Location: produk.php");
-        exit();
+      echo "
+      <script>
+          document.location.href = '../WEB/produk.php';
+          exit;
+          alertify.success('Berhasil menambah data');
+      </script>";
         
     } else{
         echo "Gagal menambah data!";
@@ -36,6 +42,19 @@ if (isset($_POST['submit'])){
       href="../CSS/style-ft-produk.css"
     />
 
+    <!-- Alertify -->
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
+
+    <!-- CSS Alertify -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/alertify.min.css"/>
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/default.min.css"/>
+    <!-- Semantic UI theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/semantic.min.css"/>
+    <!-- Bootstrap theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/bootstrap.min.css"/>
+
+
     <!-- Feather Icons -->
     <script src="https://unpkg.com/feather-icons"></script>
   </head>
@@ -46,7 +65,7 @@ if (isset($_POST['submit'])){
       <div class="container-dashboard">
         <span class="icon"><i data-feather="home"></i></span>
         <a
-          href="dashboard.php"
+          href="index.php"
           class="menu-nav dashboard"
           >Dashboard</a
         >
@@ -124,7 +143,7 @@ if (isset($_POST['submit'])){
             <span>ADD PRODUCT</span>
           </div>
         </div>
-        <form action="" method="POST">
+        <form action="" method="POST" enctype="multipart/form-data">
           <label for="kode">Kode Buah</label><br />
           <input
             type="text"
@@ -188,6 +207,13 @@ if (isset($_POST['submit'])){
             required
           /><br />
 
+          <label for="gambar_produk">Gambar</label><br />
+          <input
+            type="file"
+            id="gambar_produk"
+            name="gambar_produk"
+          /><br />
+
           <button
           type="submit"
           name = "submit"
@@ -195,6 +221,13 @@ if (isset($_POST['submit'])){
         >
           Submit
         </button>
+
+        <!-- <script>
+        function showAlert() {
+          alertify.alert("Konfirmasi", "Harap konfirmasi ulang pembelian! Klik yakin untuk lanjut menyimpan", function() {
+          });
+        }
+        </script> -->
 
         <button
           type="reset"
@@ -208,6 +241,8 @@ if (isset($_POST['submit'])){
 
       </div>
     </div>
+
+  
 
     <!-- Form Tambah Karyawan End -->
     <script>

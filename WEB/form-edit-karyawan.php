@@ -66,7 +66,7 @@ if ( isset($_POST['submit']) ){
       <div class="container-dashboard">
         <span class="icon"><i data-feather="home"></i></span>
         <a
-          href="dashboard.php"
+          href="index.php"
           class="menu-nav dashboard"
           >Dashboard</a
         >

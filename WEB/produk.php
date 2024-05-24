@@ -19,6 +19,23 @@ if ( isset($_POST["cari"]) ){
     />
     <title>Produk</title>
 
+    <link
+      rel="stylesheet"
+      href="style.css"
+    />
+
+    <!-- Alertify -->
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
+
+    <!-- CSS Alertify -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/alertify.min.css"/>
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/default.min.css"/>
+    <!-- Semantic UI theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/semantic.min.css"/>
+    <!-- Bootstrap theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/bootstrap.min.css"/>
+
     <!-- Google Font -->
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
@@ -32,6 +49,7 @@ if ( isset($_POST["cari"]) ){
 
     <!-- Feather Icons -->
     <script src="https://unpkg.com/feather-icons"></script>
+
   </head>
   <body>
     <!-- Navigasi -->
@@ -40,7 +58,7 @@ if ( isset($_POST["cari"]) ){
       <div class="container-dashboard">
         <span class="icon"><i data-feather="home"></i></span>
         <a
-          href="dashboard.php"
+          href="index.php"
           class="menu-nav dashboard"
           >Dashboard</a
         >
@@ -127,7 +145,7 @@ if ( isset($_POST["cari"]) ){
       </div>
 
       <!-- Fitur Sorting Start -->
-      <div class="sorting">
+      <!-- <div class="sorting">
         <form action="">
           <label for="sort">SORT</label>
           <select
@@ -139,23 +157,24 @@ if ( isset($_POST["cari"]) ){
             <option value="stok">Stok</option>
           </select>
         </form>
-      </div>
+      </div> -->
     </div>
     <!-- Fitur Search nd Sort End -->
 
     <!-- Kolom Manajemen produk Start -->
     <section class="container-manajemen-produk">
-      <div class="kolom">
-        <div class="icon">
-          <div class="keterangan">
-            <span id="feather-icon"><i data-feather="table"></i></span>
-            <span>PRODUK</span>
-          </div>
-          <div class="tambah-data"><a href="form-tambah-produk.php">ADD NEW</a></div>
+      <div class="icon">
+        <div class="keterangan">
+          <span id="feather-icon"><i data-feather="table"></i></span>
+          <span>PRODUK</span>
         </div>
+        <div class="tambah-data"><a href="form-tambah-produk.php">ADD NEW</a></div>
+      </div>
+      <div class="kolom">
         <table class="tb_produk">
           <tr>
             <th>kode</th>
+            <th>Gambar</th>
             <th>Nama Produk</th>
             <th>Harga</th>
             <th>Berat</th>
@@ -166,6 +185,7 @@ if ( isset($_POST["cari"]) ){
             <?php foreach ($rows as $row) :?>
               <tr>
                 <td><?= $row['kode'] ?></td>
+                <td><img src="../IMG/<?= $row['gambar'] ?>" alt="<?= $row['gambar'] ?>" style="width: 90px"></td>
                 <td><?= $row['nama_produk']?></td>
                 <td><?= $row['harga']?></td>
                 <td><?= $row['berat']?></td>
@@ -173,13 +193,31 @@ if ( isset($_POST["cari"]) ){
                 <td><?= $row['stok']?></td>
                 <td>
                   <div class="btn_edit"><a href="form-edit-produk.php?kode=<?= $row['kode']?>">E</a></div>
-                  <div class="btn_hapus"><a href="../PHP/hapus.php?kode=<?= $row['kode']?>" onclick="return confirm('apa Anda yakin mau menghapus?')" >x</a></div>
+                  <div class="btn_hapus">
+                  <div class="btn_hapus">
+                      <a href="../PHP/hapus.php?kode=<?= htmlspecialchars($row['kode'], ENT_QUOTES, 'UTF-8') ?>" onclick="return confirmDeletion(this)">x</a>
+                  </div>
                 </td>
               </tr>
                 <?php endforeach; ?>
         </table>
       </div>
     </section>
+
+    <script>
+        function confirmDeletion(element) {
+            alertify.confirm('Konfirmasi Penghapusan', 'Apa Anda yakin mau menghapus?', 
+                function() { // Jika user klik "OK"
+                    window.location.href = element.href;
+                },
+                function() { // Jika user klik "Cancel"
+                    // Tidak melakukan apapun
+                }
+            );
+            return false; // Mencegah default action dari link
+        }
+        </script>
+        
     <!-- Kolom Manajemen produk End -->
     <script>
       feather.replace();

@@ -20,7 +20,7 @@
   margin-left: 300px;
   margin-bottom: 30px;
   width: 1400px;
-  height: 650px;
+  height: 720px;
 }
 
 .form-container .form {
@@ -59,7 +59,7 @@
   margin: 15px 20px;
 }
 
-.form-container .form form input,
+.form-container .form form input:not(#gambar_produk),
 select {
   width: 600px;
   height: 35px;
@@ -69,6 +69,11 @@ select {
   padding: 8px;
   font-family: 'Poppins', Arial, Helvetica, sans-serif;
   font-size: medium;
+}
+
+.form-container .form form #gambar_produk {
+  /* border: 1px solid black; */
+  margin-bottom: 30px;
 }
 
 .form-container .form form select {

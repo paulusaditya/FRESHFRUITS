@@ -47,7 +47,7 @@
   margin-left: 300px;
   margin-top: 10px;
   width: 1350px;
-  height: auto;
+  height: 700px;
   border: 1px solid rgb(141, 141, 141);
   border-radius: 7px;
   padding: 10px;
@@ -96,7 +96,7 @@
 .container-detail-transaksi .icon {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-direction: row;
   padding: 0 10px;
   background-color: var(--bg);
@@ -123,6 +123,22 @@
 .container-detail-transaksi .icon .keterangan span {
   margin-left: 10px;
 }
+
+.container-detail-transaksi .icon .info-data-proses {
+  width: 25px;
+  height: 25px;
+  background-color: var(--primary);
+  border: 1px solid #93330a;
+  border-radius: 50px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+/* Keterangan end */
 
 /* Kolom Detail Transaksi Per-Periode/prediksi permintaan Start*/
 .container-detail-transaksi .c_periode {

@@ -7,7 +7,6 @@ $kode_alamat = $_GET["kode_alamat"];
 if (hapus( $id, $kode_alamat ) > 0) {
     echo "
     <script>
-        alert('data berhasil dihapus');
         document.location.href = '../WEB/karyawan.php';
         exit;
     </script>

@@ -15,18 +15,6 @@ include "../PHP/apriori.php";
     />
     <title>Dashboard</title>
 
-    <!-- Alertify -->
-    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
-
-    <!-- CSS Alertify -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/alertify.min.css"/>
-    <!-- Default theme -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/default.min.css"/>
-    <!-- Semantic UI theme -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/semantic.min.css"/>
-    <!-- Bootstrap theme -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/bootstrap.min.css"/>
-
     <!-- Google Font -->
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
@@ -124,30 +112,6 @@ include "../PHP/apriori.php";
             <span id="feather-icon"><i data-feather="table"></i></span>
             <span>FREQUENT ITEMSET</span>
           </div>
-          <div class="info-data-proses" id="infoDataProses">
-            ?
-          </div>
-
-          <script>
-              document.getElementById('infoDataProses').addEventListener('click', function() {
-                  alertify.alert('Informasi', 
-                  `Algoritma Apriori digunakan untuk menemukan frequent itemsets dan asosiasi rules dalam suatu dataset transaksi. Hasil dari algoritma ini biasanya disajikan dalam bentuk tabel yang membantu dalam analisis data. Berikut adalah penjelasan tentang cara membaca tabel yang dihasilkan dari algoritma Apriori:<br><br>
-                  <strong>Tabel Frequent Itemsets</strong><br>
-                  Tabel ini berisi itemsets yang muncul lebih sering daripada threshold support (minimum support) yang ditentukan. Tabel ini biasanya terdiri dari dua kolom utama:<br><br>
-
-                  <b>Itemset</b>: Kombinasi item yang muncul bersama dalam transaksi.<br>
-                  <b>Support</b>: Proporsi transaksi yang mengandung itemset tersebut dibandingkan dengan total transaksi.<br>
-                  <b>Support Antecedent</b>: Seberapa sering item yang <i>jika dibeli</i> muncul dalam seluruh transaksi.<br>
-                  <b>Confident</b>: Digunakan untuk mengevaluasi keandalan aturan asosiasi yang dihasilkan.<br><br>
-                  <strong>Manfaat Penerapan Algoritma Apriori</strong><br>
-                  1. Market Basket Analysis<br>
-                  2. Rekomendasi Produk<br>
-                  3. Manajemen Persediaan<br>
-                  4. Deteksi Pola Penipuan<br>
-                  5. Peletakan barang<br>
-                  6. etc`);
-              });
-          </script>
         </div>
 
         <div class="c_periode">

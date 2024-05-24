@@ -2,53 +2,34 @@
 
 $conn = mysqli_connect("localhost", "root", "", "freshfruit");
 
-// Memeriksa apakah form telah disubmit sebelum memanggil filter
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $dari_tgl = mysqli_real_escape_string($conn, $_POST["range-start"]);
-    $sampai_tgl = mysqli_real_escape_string($conn, $_POST["range-end"]);
-}
+function cari_transaksi($keyword){
+    global $conn;
 
-function filter() {
-    global $conn, $dari_tgl, $sampai_tgl;
-
-    $data_transaksi = mysqli_query($conn, 
-        "SELECT
-        produk.nama_produk,
-        produk.harga,
-        produk.harga_grosir,
-        SUM(detail_transaksi.kuantitas) AS total_kuantitas,
-        SUM(detail_transaksi.total) AS total_penjualan,
-        (produk.harga - produk.harga_grosir) * SUM(detail_transaksi.kuantitas) AS total_profit,
-        (SELECT 
-            SUM(detail_transaksi.total) 
+    $query = "SELECT  
+                transaksi.kode AS kode_transaksi, 
+                GROUP_CONCAT(produk.nama_produk SEPARATOR ', ') AS produk_terjual_multivalue, 
+                SUM(detail_transaksi.kuantitas) AS total_kuantitas, 
+                SUM(detail_transaksi.total) AS total_pembelian, 
+                transaksi.tanggal AS tanggal_terjual, 
+                karyawan.nama AS karyawan_melayani 
             FROM 
-                detail_transaksi 
-            JOIN   
-                transaksi ON detail_transaksi.kode_transaksi = transaksi.kode 
+                transaksi 
+            JOIN detail_transaksi ON detail_transaksi.kode_transaksi = transaksi.kode
+            JOIN karyawan ON transaksi.karyawan = karyawan.id
+            JOIN produk ON detail_transaksi.produk_terjual = produk.kode
             WHERE 
-                transaksi.tanggal BETWEEN '$dari_tgl' AND '$sampai_tgl') AS grand_total_penjualan
-    FROM
-        detail_transaksi
-    JOIN transaksi ON detail_transaksi.kode_transaksi = transaksi.kode
-    JOIN produk ON detail_transaksi.produk_terjual = produk.kode
-    WHERE
-        transaksi.tanggal BETWEEN '$dari_tgl' AND '$sampai_tgl'
-    GROUP BY
-        produk.kode,
-        produk.nama_produk,
-        produk.harga,
-        produk.harga_grosir;"
-    );    
+                transaksi.kode LIKE '%$keyword%' OR
+                produk.nama_produk LIKE '%$keyword%' OR
+                transaksi.tanggal LIKE '%$keyword%' OR
+                karyawan.nama LIKE '%$keyword%'
+            GROUP BY 
+                transaksi.kode, 
+                transaksi.tanggal, 
+                karyawan.nama;
+            
+            ";
 
-    $row = [];
-    while ($reports = mysqli_fetch_assoc($data_transaksi)){
-        $row[] = $reports;
-    }
-
-
-    return $row;
+    return query($query);
 }
-
-
 
 ?>

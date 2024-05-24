@@ -76,7 +76,7 @@ if ( isset($_POST["cari"]) ){
       <div class="container-dashboard">
         <span class="icon"><i data-feather="home"></i></span>
         <a
-          href="dashboard.php"
+          href="index.php"
           class="menu-nav dashboard"
           >Dashboard</a
         >
@@ -177,7 +177,7 @@ if ( isset($_POST["cari"]) ){
               Search
             </button>
             <div class="refresh">
-              <a href="karyawan.php"><i data-feather="refresh-ccw"></i></a>
+              <a href="transaksi.php"><i data-feather="refresh-ccw"></i></a>
             </div>
           </form>
         </div>

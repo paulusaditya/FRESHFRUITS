@@ -1,23 +1,36 @@
 <?php
-require "../PHP/crud-karyawan.php";
+require '../PHP/crud-admin.php';
 
-$posisi_k = query("SELECT * FROM posisi_karyawan");
+$id = $_GET['id'];
+$kode_alamat = $_GET['kode_alamat'];
 
+$rows = query("SELECT admin.id, admin.nama, admin.email, admin.nomer, admin.gambar, admin.password, alamat.kode, alamat.alamat AS alamat, alamat.kota AS kota, alamat.provinsi AS provinsi
+                FROM admin 
+                JOIN alamat ON admin.alamat = alamat.kode
+                WHERE admin.id='$id';")[0];
+// var_dump($rows);
 
-// Tambah data
-if (isset($_POST['submit'])){
-  if (tambah($_POST) > 0){
-      echo "Data Berhasil Ditambahkan!";
-      header("Location: karyawan.php");
-      exit();
-      
-  } else{
-      echo "Gagal menambah data!";
+if ( isset($_POST['submit']) ){
+    if (ubah($_POST, $kode_alamat) > 0){
+    echo "
+    <script>
+        alert('data berhasil diubah');
+        document.location.href = 'akun.php';
+        exit;
+    </script>
+    ";
+  } else {
+    echo "
+    <script>
+        alert('data gagal diubah');
+        document.location.href = 'akun.php';
+        exit;
+    </script>
+    ";
   }
 }
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -27,7 +40,7 @@ if (isset($_POST['submit'])){
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
-    <title>Tambah Karyawan</title>
+    <title>Edit Karyawan</title>
 
     <!-- Google Font -->
     <link
@@ -37,7 +50,7 @@ if (isset($_POST['submit'])){
 
     <link
       rel="stylesheet"
-      href="../CSS/style-fe-karyawan.css"
+      href="../CSS/style-edit-akun.css"
     />
 
     <!-- Feather Icons -->
@@ -64,7 +77,7 @@ if (isset($_POST['submit'])){
         >
       </div>
       <div class="container-karyawan">
-        <span class="icon utama"><i data-feather="users"></i></span>
+        <span class="icon"><i data-feather="users"></i></span>
         <a
           href="karyawan.php"
           class="menu-nav"
@@ -96,7 +109,7 @@ if (isset($_POST['submit'])){
         >
       </div>
       <div class="container-akun">
-        <span class="icon"><i data-feather="user"></i></span>
+        <span class="icon utama"><i data-feather="user"></i></span>
         <a
           href="akun.php"
           class="menu-nav"
@@ -125,29 +138,33 @@ if (isset($_POST['submit'])){
         <div class="icon">
           <div class="keterangan">
             <span id="feather-icon"><i data-feather="table"></i></span>
-            <span>ADD KARYAWAN</span>
+            <span>EDIT KARYAWAN</span>
           </div>
         </div>
         <form
-          action=""
+        action=""
           method="POST"
+          enctype="multipart/form-data"
           onsubmit="return validatePassword()"
         >
+        <input type="hidden" id="gambarLama" name="gambarLama"  value="<?= $rows['gambar'] ?>">
           <label for="id">Id</label><br />
           <input
             type="text"
             id="id"
             name="id"
             placeholder="K00X"
+            value="<?= $rows['id'] ?>"
             required
           /><br />
 
-          <label for="nama">Nama Karyawan</label><br />
+          <label for="nama">Nama Admin</label><br />
           <input
             type="text"
             id="nama"
             name="nama"
-            placeholder="Employee Name"
+            placeholder="Your Name"
+            value="<?= $rows['nama'] ?>"
             required
           /><br />
 
@@ -157,6 +174,17 @@ if (isset($_POST['submit'])){
             id="email"
             name="email"
             placeholder="email@example.com"
+            value="<?= $rows['email'] ?>"
+            required
+          /><br />
+
+          <label for="nomer">Nomer</label><br />
+          <input
+            type="nomer"
+            id="nomer"
+            name="nomer"
+            placeholder="Phone Number"
+            value="<?= $rows['nomer'] ?>"
             required
           /><br />
 
@@ -165,16 +193,17 @@ if (isset($_POST['submit'])){
             type="password"
             id="password"
             name="password"
-            placeholder="Their Password"
+            placeholder="Your Password"
+            value="<?= $rows['password'] ?>"
             required
           /><br />
-
+          
           <label for="password-confirm">Konfirmasi Password</label><br />
           <input
             type="password"
             id="password-confirm"
             name="password-confirm"
-            placeholder="Their Password"
+            placeholder="Your Password"
             required
           /><br />
 
@@ -184,6 +213,7 @@ if (isset($_POST['submit'])){
             id="alamat"
             name="alamat"
             placeholder="Address"
+            value="<?= $rows['alamat'] ?>"
             required
           /><br />
 
@@ -193,6 +223,7 @@ if (isset($_POST['submit'])){
             id="kota"
             name="kota"
             placeholder="City"
+            value="<?= $rows['kota'] ?>"
             required
           /><br />
 
@@ -202,25 +233,17 @@ if (isset($_POST['submit'])){
             id="provinsi"
             name="provinsi"
             placeholder="Province"
+            value="<?= $rows['provinsi'] ?>"
             required
           /><br />
 
-          <label for="posisi_karyawan">Posisi Karyawan</label><br />
+          <label for="gambar_admin">Gambar</label><br />
+          <img src="../IMG/<?= $rows['gambar'] ?>" alt="" style ="width: 90px; height: 90px; margin-bottom: 20px;"><br>
           <input
-              type="text"
-              id="posisi_karyawan"
-              name="posisi_karyawan"
-              list="posisi_karyawan_list"
-              placeholder="Position"
-              required
-          />
-          <datalist id="posisi_karyawan_list">
-              <?php foreach ($posisi_k as $posisi) : ?>
-              <option value="<?= htmlspecialchars($posisi["kode"])?>"><?= htmlspecialchars($posisi["posisi"])?></option>
-              <?php endforeach; ?>
-          </datalist>
-          
-          <br />
+            type="file"
+            id="gambar_admin"
+            name="gambar_admin"
+          /><br />
 
           <button
             type="submit"
@@ -246,7 +269,6 @@ if (isset($_POST['submit'])){
     <script>
       feather.replace();
     </script>
-
-    <script src="../JAVASCRIPT/karyawan.js"></script>
+    <script src="/JAVASCRIPT/karyawan.js"></script>
   </body>
 </html>

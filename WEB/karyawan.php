@@ -27,6 +27,18 @@ if ( isset($_POST["cari"]) ){
     />
     <title>Manajemen Karyawan</title>
 
+    <!-- Alertify -->
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
+
+    <!-- CSS Alertify -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/alertify.min.css"/>
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/default.min.css"/>
+    <!-- Semantic UI theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/semantic.min.css"/>
+    <!-- Bootstrap theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/bootstrap.min.css"/>
+
     <!-- Google Font -->
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
@@ -48,7 +60,7 @@ if ( isset($_POST["cari"]) ){
       <div class="container-dashboard">
         <span class="icon"><i data-feather="home"></i></span>
         <a
-          href="dashboard.php"
+          href="index.php"
           class="menu-nav dashboard"
           >Dashboard</a
         >
@@ -178,12 +190,26 @@ if ( isset($_POST["cari"]) ){
                 <a href="form-edit-karyawan.php?id=<?=$row['id']?>&kode_alamat=<?=$row['kode_alamat']?>">E</a>
               </div>
               <div class="btn_hapus">
-                <a
-                  href="../PHP/hapus-karyawan.php?id=<?= $row['id']?>&kode_alamat=<?=$row['kode_alamat']?>"
-                  onclick="return confirm('apa Anda yakin mau menghapus?')"
-                  >x</a
-                >
+                  <a href="../PHP/hapus-karyawan.php?id=<?= $row['id']?>&kode_alamat=<?=$row['kode_alamat']?>"
+                    onclick="return confirmDelete(event)"
+                  >x</a>
               </div>
+
+              <script>
+                  function confirmDelete(event) {
+                      event.preventDefault();
+                      alertify.confirm('Konfirmasi Hapus', 'Apa Anda yakin mau menghapus?',
+                          function() {
+                              window.location.href = event.target.href;
+                          },
+                          function() {
+                              alertify.error('Penghapusan dibatalkan');
+                          }
+                      );
+                      return false;
+                  }
+              </script>
+                            
             </td>
           </tr>
           <?php endforeach; ?>

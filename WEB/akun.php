@@ -1,3 +1,13 @@
+<?php
+require '../PHP/crud-karyawan.php';
+
+$admin = query("SELECT admin.id, admin.nama, admin.email, admin.nomer, admin.gambar, alamat.kode AS kode_alamat, CONCAT(alamat.alamat, ', ', alamat.kota, ', ', alamat.provinsi) AS alamat 
+                FROM admin 
+                JOIN alamat ON admin.alamat = alamat.kode;");
+
+// var_dump($admin);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -29,7 +39,7 @@
       <div class="container-dashboard">
         <span class="icon"><i data-feather="home"></i></span>
         <a
-          href="dashboard.php"
+          href="index.php"
           class="menu-nav dashboard"
           >Dashboard</a
         >
@@ -100,37 +110,43 @@
 
     <!-- Form Data Akun Start -->
     <div class="container-data">
-      <div class="container-form">
+      <div class="container-form" style="margin-top: 30px">
+      <?php foreach  ($admin as $row) : ?>
         <div class="icon">
           <img
-            src="../IMG/admin.jpg"
+            src="../IMG/<?= $row['gambar'] ?>"
             alt="Foto Admin"
             width="200px"
             height="auto"
+            style="width: 200px; height: 200px"
           />
           <h4>Admin FreshFruit</h4>
         </div>
         <table>
-          <tr>
-            <td>Nama</td>
-            <td>: Adit Widodo</td>
-          </tr>
-          <tr>
-            <td>Email</td>
-            <td>: aditw@gmail.com</td>
-          </tr>
-          <tr>
-            <td>No HP / Whatsapp</td>
-            <td>: 123456789012</td>
-          </tr>
-          <tr>
-            <td>Alamat</td>
-            <td>: Tidak disetel</td>
-          </tr>
+            <tr>
+              <td>Nama </td>
+              <td>: <?= $row['nama'] ?></td>
+            </tr>
+            <tr>
+              <td>Email </td>
+              <td>: <?= $row['email'] ?></td>
+            </tr>
+            <tr>
+              <td>No HP </td>
+              <td>: <?= $row['nomer'] ?></td>
+            </tr>
+            <tr>
+              <td>Alamat </td>
+              <td>: <?= $row['alamat'] ?></td>
+            </tr>
+          
+
         </table>
       </div>
 
-      <button type="button">Logout</button>
+            <button type="button"><a href="edit-akun.php?id=<?= $row['id'] ?>&kode_alamat=<?= $row['kode_alamat'] ?>" style='color: white; text-decoration: none;'>Edit Akun</a></button>
+            <button type="button">Logout</button>
+            <?php endforeach; ?>
     </div>
     <!-- Form Data Akun End -->
 

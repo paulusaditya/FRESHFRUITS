@@ -7,7 +7,6 @@ $kode = $_GET["kode"];
 if (hapus( $kode ) > 0) {
     echo "
     <script>
-        alert('data berhasil dihapus');
         document.location.href = '../WEB/produk.php';
         exit;
     </script>
@@ -22,7 +21,5 @@ if (hapus( $kode ) > 0) {
     </script>
     ";
 }
-
-
 
 ?>

@@ -1,3 +1,10 @@
+<!-- Live data -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+        
+
+
 <?php
 
 $conn = mysqli_connect("localhost", "root", "", "freshfruit");
@@ -17,16 +24,21 @@ function query($query){
 function tambah($post){
     global $conn;
 
-    $kode = $post['kode'];
-    $nama_produk = $post['nama_produk'];
-    $harga_jual = $post['harga_jual'];
-    $harga_beli = $post['harga_beli'];
-    $berat = $post['berat'];
-    $tanggal = $post['tanggal'];
-    $stok = $post['stok'];
+    $kode = htmlspecialchars($post['kode']);
+    $nama_produk = htmlspecialchars($post['nama_produk']);
+    $harga_jual = htmlspecialchars($post['harga_jual']);
+    $harga_beli = htmlspecialchars($post['harga_beli']);
+    $berat = htmlspecialchars($post['berat']);
+    $tanggal = htmlspecialchars($post['tanggal']);
+    $stok = htmlspecialchars($post['stok']);
 
-    $query = "INSERT INTO produk (kode, nama_produk, harga, harga_grosir, berat, tanggal_kadaluarsa, stok)
-              VALUES ('$kode', '$nama_produk', '$harga_jual', '$harga_beli', '$berat', '$tanggal', '$stok')";
+    $gambar = upload();
+    if (!$gambar) {
+        return false;
+    }
+
+    $query = "INSERT INTO produk (kode, gambar, nama_produk, harga, harga_grosir, berat, tanggal_kadaluarsa, stok)
+              VALUES ('$kode', '$gambar','$nama_produk', '$harga_jual', '$harga_beli', '$berat', '$tanggal', '$stok')";
 
     mysqli_query($conn, $query);
     return mysqli_affected_rows($conn);
@@ -39,21 +51,31 @@ function hapus($kode){
     return mysqli_affected_rows($conn);
 }
 
-
 function ubah($post){
     global $conn;
 
-    $kode = $post['kode'];
-    $nama_produk = $post['nama_produk'];
-    $harga = $post['harga'];
-    $berat = $post['berat'];
-    $tanggal = $post['tanggal'];
-    $stok = $post['stok'];
+    $kode = htmlspecialchars($post['kode']);
+    $nama_produk = htmlspecialchars($post['nama_produk']);
+    $harga_jual = htmlspecialchars($post['harga_jual']);
+    $harga_beli = htmlspecialchars($post['harga_beli']);
+    $berat = htmlspecialchars($post['berat']);
+    $tanggal = htmlspecialchars($post['tanggal']);
+    $stok = htmlspecialchars($post['stok']);
+    $gambarLama = htmlspecialchars($post['gambarLama']);
+
+
+    if ($_FILES['gambar_produk']['error'] === 4) {
+        $gambar = $gambarLama;
+    } else {
+        $gambar = upload();
+    }
 
     $query = "UPDATE produk SET
                 kode='$kode',
+                gambar='$gambar',
                 nama_produk='$nama_produk',
-                harga='$harga',
+                harga='$harga_jual',
+                harga_grosir='$harga_beli',
                 berat='$berat',
                 tanggal_kadaluarsa='$tanggal',
                 stok='$stok'
@@ -78,36 +100,39 @@ function cari_produk($keyword){
     return query($query);
 }
 
+function upload(){
+    $namaFile = $_FILES['gambar_produk']['name'];
+    $tmpFile = $_FILES['gambar_produk']['tmp_name'];
+    $error = $_FILES['gambar_produk']['error'];
 
-function cari_transaksi($keyword){
-    global $conn;
+    $ekstensi = ["jpg", "jpeg", "png"];
+    $ekstensiGambar = explode(".", $namaFile);
+    $ekstensiGambar = strtolower(end($ekstensiGambar));
 
-    $query = "SELECT  
-            transaksi.kode AS kode_transaksi, 
-            GROUP_CONCAT(produk.nama_produk SEPARATOR ', ') AS produk_terjual_multivalue, 
-            SUM(detail_transaksi.kuantitas) AS total_kuantitas, 
-            SUM(detail_transaksi.total) AS total_pembelian, 
-            transaksi.tanggal AS tanggal_terjual, 
-            karyawan.nama AS karyawan_melayani 
-            FROM 
-            transaksi 
-            JOIN detail_transaksi ON detail_transaksi.kode_transaksi = transaksi.kode
-            JOIN karyawan ON transaksi.karyawan = karyawan.id
-            JOIN produk ON detail_transaksi.produk_terjual = produk.kode
-            WHERE 
-            transaksi.kode LIKE '%$keyword%' OR
-            produk.nama_produk LIKE '%$keyword%' OR
-            transaksi.tanggal LIKE '%$keyword%' OR
-            karyawan.nama LIKE '%$keyword%'
-            GROUP BY 
-            transaksi.kode, 
-            transaksi.tanggal, 
-            karyawan.nama;
-            
-            ";
+    $namaBaru = uniqid();
+    $namaBaru .= ".";
+    $namaBaru .= $ekstensiGambar;
 
-    return query($query);
+    if ( $error === 4 ) {
+        echo '<script>
+        alert("Gambar tidak boleh kosong.");
+        </script>';
+        return false;
+    }
+
+    if ( !in_array($ekstensiGambar, $ekstensi) ) {
+        echo '<script>
+        alert("Ekstensi file tidak diperbolehkan. Harap unggah file dengan ekstensi yang benar.");
+        </script>';
+        return false;
+    }
+
+    move_uploaded_file($tmpFile, '../IMG/' . $namaBaru);
+
+    return $namaBaru;
 }
+
+
 
 
 

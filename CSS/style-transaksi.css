@@ -43,8 +43,8 @@
   border-bottom: none;
   margin-right: 50px;
 }
-/* Pencarian Start */
 
+/* Pencarian Start */
 form {
   display: flex;
 }
@@ -208,5 +208,4 @@ th {
   font-size: 12px;
   width: 1200px;
 }
-
 /* Kolom Detail Transaksi Per-Periode/prediksi permintaan End*/
